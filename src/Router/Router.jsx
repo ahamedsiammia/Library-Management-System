@@ -6,7 +6,7 @@ export const router = createBrowserRouter([
         path:"/",
         Component: RoteLayout,
         children:[
-            
+             
         ]
     }
 ])
