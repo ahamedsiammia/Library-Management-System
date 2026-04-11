@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import Logo from "../Logo/Logo";
 
 const Navbar = () => {
   return (
@@ -7,7 +8,9 @@ const Navbar = () => {
 
     <nav className="sticky top-0 z-50 bg-teal-500 backdrop-blur-xl border-b border-zinc-200/50 flex items-center justify-between px-8 py-4 font-sans text-sm">
       <div className="flex items-center space-x-2">
-        <div className="text-zinc-900 font-bold text-xl">LOGO</div>
+        <div >
+            <Logo></Logo>
+        </div>
       </div>
       <div className="bg-zinc-100/50 border border-zinc-200/80 rounded-full px-1 py-1 flex items-center shadow-sm">
         <Link className="bg-white text-teal-600 px-5 py-2 rounded-full font-medium transition-all shadow-md">
