@@ -5,12 +5,12 @@ import Footer from '../Footer/Footer';
 
 const RoteLayout = () => {
     return (
-        <div className='max-w-7xl mx-auto min-h-screen flex flex-col'>
+        <div className='min-h-screen flex flex-col'>
             <Navbar ></Navbar>
-            <div className=''>
+            <div className='container mx-auto'>
                 <Outlet></Outlet>
             </div>
-            <Footer></Footer>
+            <Footer ></Footer>
         </div>
     );
 };

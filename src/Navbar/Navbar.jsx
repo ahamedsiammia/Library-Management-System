@@ -4,9 +4,9 @@ import Logo from "../Logo/Logo";
 
 const Navbar = () => {
   return (
-    <div>
+    <div className="bg-teal-500">
 
-    <nav className="sticky top-0 z-50 bg-teal-500 backdrop-blur-xl border-b border-zinc-200/50 flex items-center justify-between px-8 py-4 font-sans text-sm">
+    <nav className="sticky top-0 container mx-auto z-50 bg-teal-500 backdrop-blur-xl border-b border-zinc-200/50 flex items-center justify-between px-8 py-4 font-sans text-sm">
       <div className="flex items-center space-x-2">
         <div >
             <Logo></Logo>
