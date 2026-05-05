@@ -1,61 +1,98 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import Logo from '../Logo/Logo';
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
-        <footer className="footer container mx-auto sm:footer-horizontal bg-base-300 text-base-content p-10">
-  <nav>
-    <h6 className="footer-title">Services</h6>
-    <a className="link link-hover">Branding</a>
-    <a className="link link-hover">Design</a>
-    <a className="link link-hover">Marketing</a>
-    <a className="link link-hover">Advertisement</a>
-  </nav>
-  <nav>
-    <h6 className="footer-title">Company</h6>
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
-  </nav>
-  <nav>
-    <h6 className="footer-title">Social</h6>
-    <div className="grid grid-flow-col gap-4">
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className="fill-current">
-          <path
-            d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-        </svg>
-      </a>
-    </div>
-  </nav>
-</footer>
+        <footer className="relative pt-16 pb-8 bg-transparent overflow-hidden border-t border-white/20 dark:border-slate-800/50">
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                    
+                    {/* Brand Section */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="space-y-4"
+                    >
+                        <div className="flex items-center gap-2">
+                            <Logo></Logo>
+                        </div>
+                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            আধুনিক ডিজিটাল লাইব্রেরি সমাধান। আমরা বই পড়াকে সহজ এবং আনন্দদায়ক করতে প্রতিশ্রুতিবদ্ধ।
+                        </p>
+                    </motion.div>
+
+                    {/* Quick Links */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                    >
+                        <h4 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Quick Links</h4>
+                        <ul className="space-y-4 text-slate-600 dark:text-slate-400">
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Home</a></li>
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">All Books</a></li>
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Categories</a></li>
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Digital Archive</a></li>
+                        </ul>
+                    </motion.div>
+
+                    {/* Support */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        <h4 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Support</h4>
+                        <ul className="space-y-4 text-slate-600 dark:text-slate-400">
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Help Center</a></li>
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Terms of Service</a></li>
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Privacy Policy</a></li>
+                            <li><a href="#" className="hover:text-teal-500 transition-colors">Contact Us</a></li>
+                        </ul>
+                    </motion.div>
+
+                    {/* Newsletter / Contact */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 }}
+                    >
+                        <h4 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Newsletter</h4>
+                        <div className="relative group">
+                            <input 
+                                type="email" 
+                                placeholder="Enter email"
+                                className="w-full p-4 pr-12 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/30 dark:border-slate-700/50 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-lg"
+                            />
+                            <button className="absolute right-2 top-2 p-2 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition-colors shadow-lg">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="pt-8 border-t border-white/10 dark:border-slate-800/30 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+                    <p>© {currentYear} DevAxe. All rights reserved.</p>
+                    <div className="flex gap-6">
+                        <motion.a whileHover={{ y: -3 }} href="#" className="hover:text-teal-500 transition-colors">Facebook</motion.a>
+                        <motion.a whileHover={{ y: -3 }} href="#" className="hover:text-teal-500 transition-colors">LinkedIn</motion.a>
+                        <motion.a whileHover={{ y: -3 }} href="#" className="hover:text-teal-500 transition-colors">GitHub</motion.a>
+                    </div>
+                </div>
+            </div>
+
+            {/* Inner Decoration Blurs */}
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/5 rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2"></div>
+        </footer>
     );
 };
 
