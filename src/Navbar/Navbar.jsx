@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../Logo/Logo";
-import { NavLink } from "react-router";
+import {  Link, NavLink } from "react-router";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
@@ -46,9 +46,9 @@ const Navbar = () => {
           <button className="text-white font-medium px-4 py-1.5 hover:opacity-80 transition-opacity bg-zinc-100/50 border border-zinc-200/80 rounded-full">
             Sign in
           </button>
-          <button className="bg-zinc-900 text-white px-6 py-2 rounded-full font-medium hover:bg-zinc-800 transition-all shadow-lg">
+          <Link to={"/register"} className="bg-zinc-900 text-white px-6 py-2 rounded-full font-medium hover:bg-zinc-800 transition-all shadow-lg cursor-pointer">
             Sign Up
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button - Visible only on Mobile */}
@@ -100,9 +100,9 @@ const Navbar = () => {
             <button className="w-full py-3 text-zinc-600 font-bold border border-zinc-200 rounded-xl">
               Sign in
             </button>
-            <button className="w-full py-3 bg-teal-500 text-white font-bold rounded-xl shadow-lg">
+            <Link to={"/register"} className="w-full py-3 bg-teal-500 text-white font-bold rounded-xl shadow-lg cursor-pointer">
               Sign Up
-            </button>
+            </Link>
           </div>
         </div>
       </div>
