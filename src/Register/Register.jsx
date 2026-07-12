@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { batchUrl } from "../utils/batchUrl";
 
 const Register = () => {
   const [authMode, setAuthMode] = useState("register");
@@ -21,27 +22,30 @@ const Register = () => {
     console.log("Registering Data:", data);
     try {
       const result = await axios.post(
-        "http://localhost:5000/user/register",
+        `${batchUrl}/user/register`,
         data,
       );
-      
+      console.log(data);
       if(result.data){
         reset()
         toast.success("Your register successfully")
       }
       console.log(result.data);
       
-    } catch (error) {
+    }catch (error) {
+  console.log(error);
 
-      toast.error(error.message)
-      console.log(error);
-    }
+  const message =
+    error.response?.data?.message || "Something went wrong";
+
+  toast.error(message);
+}
 
   };
 
   const handleToggle = (mode) => {
     setAuthMode(mode);
-    setShowPassword(false); // মুড চেঞ্জ হলে পাসওয়ার্ড আবার হাইড হয়ে যাবে
+    setShowPassword(false); 
     reset();
   };
 
