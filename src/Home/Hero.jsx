@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 
 const Hero = () => {
   return (
-    <div className=" w-full min-h-[500px] py-10 flex items-center ">
+    <div className=" w-full min-h-[500px] py-10 flex items-center shadow-sm rounded-2xl">
       <div className="container w-full mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-10">
         <div className="flex-1 ">
           <h1 className="text-4xl md:text-6xl font-extrabold text-teal-500 leading-tight">
@@ -18,7 +18,7 @@ const Hero = () => {
             library solution.
           </p>
           <button className="mt-8 px-8 py-3 bg-zinc-100/50  border border-zinc-200/80 text-teal-500 font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
-            Get Started
+            Get Started  
           </button>
         </div>
 
