@@ -4,12 +4,13 @@ import Login from "../Login/Login";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { batchUrl } from "../utils/batchUrl";
+import { useNavigate, } from "react-router";
+// import { batchUrl } from "../utils/batchUrl";
 
 const Register = () => {
   const [authMode, setAuthMode] = useState("register");
-  // পাসওয়ার্ড শো/হাইড করার জন্য স্টেট
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
 
   const {
     register,
@@ -22,13 +23,15 @@ const Register = () => {
     console.log("Registering Data:", data);
     try {
       const result = await axios.post(
-        `${batchUrl}/user/register`,
+        // `${batchUrl}/user/register`,
+        `http://localhost:5000/user/register`,
         data,
       );
       console.log(data);
       if(result.data){
         reset()
         toast.success("Your register successfully")
+        navigate("/")
       }
       console.log(result.data);
       
@@ -56,14 +59,14 @@ const Register = () => {
         <div className="flex justify-center mb-8">
           <div className="relative w-64 h-12 bg-slate-100 rounded-full p-1 flex items-center cursor-pointer shadow-inner">
             <div
-              className={`absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-teal-500 rounded-full shadow-md transition-all duration-300 ease-in-out ${
+              className={`absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-teal-500 rounded-full shadow-md transition-all duration-300 ease-in-out  ${
                 authMode === "login" ? "translate-x-full" : ""
               }`}
             />
             <button
               type="button"
               onClick={() => handleToggle("register")}
-              className={`relative z-10 w-1/2 text-center text-sm font-semibold transition-colors duration-300 ${
+              className={`relative z-10 w-1/2 text-center text-sm font-semibold transition-colors duration-300 cursor-pointer ${
                 authMode === "register" ? "text-white" : "text-slate-500"
               }`}
             >
@@ -72,7 +75,7 @@ const Register = () => {
             <button
               type="button"
               onClick={() => handleToggle("login")}
-              className={`relative z-10 w-1/2 text-center text-sm font-semibold transition-colors duration-300 ${
+              className={`relative z-10 w-1/2 text-center text-sm font-semibold transition-colors duration-300 cursor-pointer ${
                 authMode === "login" ? "text-white" : "text-slate-500"
               }`}
             >
