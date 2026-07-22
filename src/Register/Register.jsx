@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, } from "react-router";
-// import { batchUrl } from "../utils/batchUrl";
+import { batchUrl } from "../utils/batchUrl";
 
 const Register = () => {
   const [authMode, setAuthMode] = useState("register");
@@ -23,8 +23,8 @@ const Register = () => {
     console.log("Registering Data:", data);
     try {
       const result = await axios.post(
-        // `${batchUrl}/user/register`,
-        `http://localhost:5000/user/register`,
+        `${batchUrl}/user/register`,
+        // `http://localhost:5000/user/register`,
         data,
       );
       console.log(data);

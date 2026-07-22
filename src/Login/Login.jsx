@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { batchUrl } from "../utils/batchUrl";
 
 const Login = () => {
   // লগইন ফর্মের জন্য আলাদা শো/হাইড স্টেট
@@ -20,7 +21,8 @@ const Login = () => {
     console.log("Logging in Data:", data);
         try {
       const result = await axios.post(
-        `http://localhost:5000/user/login`,
+        `${batchUrl}/user/register`,
+        // `http://localhost:5000/user/login`,
         data,
         {
            withCredentials: true,
