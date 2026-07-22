@@ -43,10 +43,7 @@ const Navbar = () => {
 
         {/* Auth Buttons - Hidden on Mobile */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="text-white font-medium px-4 py-1.5 hover:opacity-80 transition-opacity bg-zinc-100/50 border border-zinc-200/80 rounded-full">
-            Sign in
-          </button>
-          <Link to={"/register"} className="bg-zinc-900 text-white px-6 py-2 rounded-full font-medium hover:bg-zinc-800 transition-all shadow-lg cursor-pointer">
+          <Link to={"/register"} className="text-white font-medium px-4 py-1.5 hover:opacity-80 transition-opacity bg-zinc-100/50 border border-zinc-200/80 rounded-full">
             Sign Up
           </Link>
         </div>
@@ -97,10 +94,7 @@ const Navbar = () => {
           </div>
 
           <div className="mt-auto flex flex-col space-y-3 border-t pt-6">
-            <button className="w-full py-3 text-zinc-600 font-bold border border-zinc-200 rounded-xl">
-              Sign in
-            </button>
-            <Link to={"/register"} className="w-full py-3 bg-teal-500 text-white font-bold rounded-xl shadow-lg cursor-pointer">
+            <Link to={"/register"} className="w-full py-3 bg-teal-500 text-white font-bold rounded-xl shadow-lg cursor-pointer text-center">
               Sign Up
             </Link>
           </div>

@@ -82,9 +82,9 @@ const Footer = () => {
                 <div className="pt-8 border-t border-white/10 dark:border-slate-800/30 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
                     <p>© {currentYear} DevAxe. All rights reserved.</p>
                     <div className="flex gap-6">
-                        <motion.a whileHover={{ y: -3 }} href="#" className="hover:text-teal-500 transition-colors">Facebook</motion.a>
-                        <motion.a whileHover={{ y: -3 }} href="#" className="hover:text-teal-500 transition-colors">LinkedIn</motion.a>
-                        <motion.a whileHover={{ y: -3 }} href="#" className="hover:text-teal-500 transition-colors">GitHub</motion.a>
+                        <motion.a whileHover={{ y: -3 }} target="_blank" href="https://www.facebook.com/farhan.ahamed.siam.2024" className="hover:text-teal-500 transition-colors">Facebook</motion.a>
+                        <motion.a whileHover={{ y: -3 }} href="https://www.linkedin.com/in/siam-ahamed/" target="_blank"  className="hover:text-teal-500 transition-colors">LinkedIn</motion.a>
+                        <motion.a whileHover={{ y: -3 }} target="_blank" href="https://github.com/ahamedsiammia" className="hover:text-teal-500 transition-colors">GitHub</motion.a>
                     </div>
                 </div>
             </div>

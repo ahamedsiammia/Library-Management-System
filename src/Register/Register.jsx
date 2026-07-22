@@ -70,7 +70,7 @@ const Register = () => {
                 authMode === "register" ? "text-white" : "text-slate-500"
               }`}
             >
-              Register
+              Sign Up
             </button>
             <button
               type="button"
@@ -79,7 +79,7 @@ const Register = () => {
                 authMode === "login" ? "text-white" : "text-slate-500"
               }`}
             >
-              Login
+              Sign In
             </button>
           </div>
         </div>

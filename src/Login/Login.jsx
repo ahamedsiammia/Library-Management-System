@@ -1,19 +1,47 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Login = () => {
   // লগইন ফর্মের জন্য আলাদা শো/হাইড স্টেট
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onLoginSubmit = (data) => {
+  const onLoginSubmit = async (data) => {
     console.log("Logging in Data:", data);
+        try {
+      const result = await axios.post(
+        `http://localhost:5000/user/login`,
+        data,
+        {
+           withCredentials: true,
+        }
+      );
+      console.log(data);
+      if(result.data){
+        reset()
+        toast.success("Your LogIn successfully")
+        navigate("/")
+      }
+      console.log(result.data);
+      
+    }catch (error) {
+  console.log(error);
+
+  const message = await
+    error.response?.data?.message ;
+
+  toast.error(message);
+}
   };
 
   return (
@@ -35,7 +63,7 @@ const Login = () => {
           </label>
           <input
             type="email"
-            placeholder="raju@gmail.com"
+            placeholder="Enter Your Email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -62,7 +90,7 @@ const Login = () => {
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="••••••••"
+              placeholder="Enter Your Password"
               {...register("password", {
                 required: "Password is required",
               })}
