@@ -3,6 +3,7 @@ import RoteLayout from "../Layout/RoteLayout";
 import Home from "../Home/Home";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import About from "../About/About";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
              {
                 path:"/login",
                 Component : Login
+             },
+             {
+                path :"/about",
+                Component : About
              }
         ]
     }

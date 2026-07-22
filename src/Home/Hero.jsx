@@ -14,11 +14,12 @@ const Hero = () => {
             Digital Library <br /> Management System
           </h1>
           <p className="mt-4 text-primary text-lg">
-            Manage all your college books now with one click. Modern and easy
-            library solution.
+            জ্ঞানকে সুশৃঙ্খলভাবে সংরক্ষণ করুন। বই, সদস্য এবং সকল কার্যক্রম সহজে
+            পরিচালনা করুন। আধুনিক লাইব্রেরির জন্য নির্ভরযোগ্য ও কার্যকর একটি
+            প্ল্যাটফর্ম।
           </p>
           <button className="mt-8 px-8 py-3 bg-zinc-100/50  border border-zinc-200/80 text-teal-500 font-bold rounded-full shadow-lg hover:scale-105 transition-transform">
-            Get Started  
+            Get Started
           </button>
         </div>
 

@@ -20,7 +20,7 @@ const Logo = () => {
         </div>
         
         <span className="text-xs font-medium text-base-content/70 tracking-wide uppercase -mt-1">
-          Library Management System
+          লাইব্রেরি ব্যবস্থাপনা সিস্টেম
         </span>
       </div>
     </div>
