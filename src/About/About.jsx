@@ -62,7 +62,7 @@ const About = () => {
     },
     {
       id: 2,
-      name: "আরাফাত রহমার",
+      name: "আরাফাত রহমান",
       role: "UI/UX Designer & Frontend Dev",
       image: "https://i.postimg.cc/TPKKBBvG/wingtilldie-avatar-1577909.jpg",
       bio: "ইউজার-ফ্রেন্ডলি ইন্টারফেস ও সফট রেসপনসিভ ডিজাইন তৈরিতে আগ্রহী। কাস্টমার এক্সপেরিয়েন্স বাড়াতে কাজ করছেন।",
@@ -72,7 +72,7 @@ const About = () => {
     },
     {
       id: 3,
-      name: "রাইহান",
+      name: "রায়হান",
       role: "Designer & cyber Security",
       image: "https://i.postimg.cc/TPKKBBvG/wingtilldie-avatar-1577909.jpg",
       bio: "ড্যাশবোর্ড ম্যানেজমেন্ট ও সিকিউর এপিআই ইন্টিগ্রেশনে দক্ষ। ডেটাবেজ অপটিমাইজেশন নিশ্চিত করেন।",
