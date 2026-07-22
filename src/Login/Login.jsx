@@ -21,7 +21,7 @@ const Login = () => {
     console.log("Logging in Data:", data);
         try {
       const result = await axios.post(
-        `${batchUrl}/user/register`,
+        `${batchUrl}/user/login`,
         // `http://localhost:5000/user/login`,
         data,
         {
