@@ -60,7 +60,7 @@ export const BOOKS_DATA: Book[] = [
     badge: "Popular",
     coverImage: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600",
   },
-  {
+  { 
     id: 5,
     title: "Design Patterns",
     titleBn: "ডিজাইন প্যাটার্নস: অবজেক্ট ওরিয়েন্টেড",

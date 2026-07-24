@@ -13,6 +13,7 @@ export interface RegisterPayload {
   password: string;
 }
 
+
 export interface AuthResponse {
   success: boolean;
   message: string;
