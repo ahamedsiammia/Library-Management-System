@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   HiOutlineBookOpen,
@@ -24,13 +25,15 @@ import { Loader2 } from "lucide-react";
 const CATEGORIES = [
   { name: "", nameBn: "সকল ক্যাটাগরি" },
   { name: "Programming", nameBn: "প্রোগ্রামিং" },
-  { name: "Software Engineering", nameBn: "সফটওয়্যার ইঞ্জিনিয়ারিং" },
-  { name: "Computer Science", nameBn: "কম্পিউটার সায়েন্স" },
+  { name: "Software Engineering", nameBn: "সফটওয়্যার ইঞ্জিনিয়ারিং" },
   { name: "Web Development", nameBn: "ওয়েব ডেভেলপমেন্ট" },
-  { name: "Data Science", nameBn: "ডাটা সায়েন্স" },
-  { name: "Mathematics", nameBn: "গণিত" },
-  { name: "Physics", nameBn: "পদার্থবিজ্ঞান" },
-  { name: "Literature", nameBn: "সাহিত্য" },
+  { name: "Database", nameBn: "ডাটাবেজ" },
+  { name: "Software Architecture", nameBn: "সফটওয়্যার আর্কিটেকচার" },
+  { name: "Algorithms", nameBn: "অ্যালগরিদম" },
+  { name: "DevOps & Cloud", nameBn: "ডেভঅপ্স ও ক্লাউড" },
+  { name: "Artificial Intelligence", nameBn: "আর্টিফিশিয়াল ইন্টেলিজেন্স" },
+  { name: "Cyber Security", nameBn: "সাইবার সিকিউরিটি" },
+
 ];
 
 const BooksPage: React.FC = () => {
@@ -398,13 +401,15 @@ const BooksPage: React.FC = () => {
                           </div>
 
                           <div className="grid grid-cols-2 gap-2 pt-2">
-                            <motion.button
-                              whileTap={{ scale: 0.95 }}
-                              className="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-gray-700 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-300"
-                            >
-                              <HiOutlineEye className="w-4 h-4 text-gray-500" />
-                              <span>বিস্তারিত</span>
-                            </motion.button>
+                            <Link href={`/books/${book.id}`} className="w-full">
+                              <motion.button
+                                whileTap={{ scale: 0.95 }}
+                                className="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-gray-700 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-300"
+                              >
+                                <HiOutlineEye className="w-4 h-4 text-gray-500" />
+                                <span>বিস্তারিত</span>
+                              </motion.button>
+                            </Link>
 
                             <motion.button
                               whileTap={{ scale: 0.95 }}

@@ -74,13 +74,12 @@ const Navbar: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await authService.logout();
+      await logoutAction();
     } catch {
       // ignore
     } finally {
       setIsProfileOpen(false);
-      // Hard redirect to clear all state
-      window.location.href = "/login";
+      window.location.href = "/register";
     }
   };
 
