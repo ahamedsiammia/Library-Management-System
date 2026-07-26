@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
 
 const ROLE_OPTIONS = [
   { value: "", label: "সকল রোল" },

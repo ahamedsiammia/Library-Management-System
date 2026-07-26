@@ -1,7 +1,7 @@
 import { Book, BookApiResponse, BookQuery } from "@/types/book.types";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
 
 export const bookService = {
   async getAllBooks(query?: BookQuery): Promise<BookApiResponse> {
