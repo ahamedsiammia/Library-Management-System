@@ -12,9 +12,10 @@ import {
 import { ManagedUser } from "@/types/moderator.types";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
+import {
+  getAllUsersAction,
+  updateUserStatusAction,
+} from "@/app/(dashboard)/_actions/moderator.actions";
 
 const ROLE_OPTIONS = [
   { value: "", label: "সকল রোল" },
@@ -43,13 +44,12 @@ export default function UsersPage() {
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (roleFilter) params.append("role", roleFilter);
-      if (search) params.append("search", search);
-      const url = `${API_BASE_URL}/moderator/users${params.toString() ? `?${params}` : ""}`;
-      const res = await fetch(url, { credentials: "include", cache: "no-store" });
-      const data = await res.json();
-      if (res.ok) setUsers(data.data || []);
+      const res = await getAllUsersAction(roleFilter, search);
+      if (res.success && res.data) {
+        setUsers(res.data);
+      } else {
+        toast.error(res.message || "ইউজার ডেটা লোড করতে ব্যর্থ হয়েছে।");
+      }
     } catch {
       toast.error("ইউজার ডেটা লোড করতে ব্যর্থ হয়েছে।");
     } finally {
@@ -66,17 +66,8 @@ export default function UsersPage() {
     const newStatus = user.activeStatus === "ACTIVE" ? "BLOCKED" : "ACTIVE";
     setUpdating(user.id);
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/moderator/users/${user.id}/status`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
-      const data = await res.json();
-      if (res.ok) {
+      const res = await updateUserStatusAction(user.id, newStatus);
+      if (res.success) {
         setUsers((prev) =>
           prev.map((u) =>
             u.id === user.id ? { ...u, activeStatus: newStatus } : u
@@ -88,7 +79,7 @@ export default function UsersPage() {
             : `${user.name}-এর অ্যাকাউন্ট সাসপেন্ড করা হয়েছে।`
         );
       } else {
-        toast.error(data.message || "স্ট্যাটাস আপডেট ব্যর্থ হয়েছে।");
+        toast.error(res.message || "স্ট্যাটাস আপডেট ব্যর্থ হয়েছে।");
       }
     } catch {
       toast.error("সার্ভারের সাথে সংযোগ ব্যর্থ হয়েছে।");

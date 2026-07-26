@@ -8,7 +8,8 @@ import {
 import { cookies } from "next/headers";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://library-management-system-backend-fawn.vercel.app";
 
 async function getAuthHeaders() {
   const cookieStore = await cookies();
