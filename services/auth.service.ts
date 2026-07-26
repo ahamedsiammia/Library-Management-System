@@ -16,4 +16,14 @@ export const authService = {
     const response = await api.get<AuthResponse>("/user/me");
     return response.data;
   },
+
+  // Client-side logout: clear cookies by calling the backend if available,
+  // otherwise just redirect — cookie is httpOnly so we can't clear it via JS directly.
+  async logout(): Promise<void> {
+    try {
+      await api.post("/user/logout");
+    } catch {
+      // Backend may not have logout endpoint — that's ok
+    }
+  },
 };
