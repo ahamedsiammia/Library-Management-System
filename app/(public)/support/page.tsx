@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-// If hi2 icons path varies, we import directly from react-icons/hi2
 import {
   HiPhone,
   HiEnvelope,
@@ -98,269 +97,255 @@ export default function SupportPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/70 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-14">
-        {/* Hero Banner Section */}
+    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto space-y-16">
+        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative bg-gradient-to-br from-teal-600 via-teal-500 to-emerald-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl overflow-hidden"
+          transition={{ duration: 0.5 }}
+          className="text-center space-y-4 max-w-3xl mx-auto"
         >
-          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute -left-10 -top-10 w-64 h-64 bg-teal-400/20 rounded-full blur-2xl" />
-
-          <div className="relative z-10 text-center max-w-3xl mx-auto space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wider">
-              <HiSparkles className="w-4 h-4 text-amber-300" /> ২৪/৭ ডিজিটাল হেল্পডেস্ক
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-              আমরা কীভাবে আপনাকে <span className="text-amber-300">সাহায্য করতে পারি?</span>
-            </h1>
-            <p className="text-teal-50 text-sm sm:text-base max-w-2xl mx-auto font-medium">
-              লাইব্রেরি কার্ড, বই ইস্যু, অনলাইন রিসোর্স বা অ্যাকাউন্টের যেকোনো সমস্যায় আমরা আপনার পাশে আছি। নিচের মাধ্যমগুলোতে সহজেই আমাদের টিমকে পান।
-            </p>
-          </div>
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800/60 text-[#00BBA6] font-semibold text-xs sm:text-sm">
+            <HiSparkles className="w-4 h-4" /> ২৪/৭ হেল্প ডেস্ক ও সহায়তা কেন্দ্র
+          </span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-slate-100 leading-tight">
+            আমরা আপনাকে <span className="text-[#00BBA6]">সহায়তা</span> করতে প্রস্তুত
+          </h1>
+          <p className="text-gray-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+            লাইব্রেরি সার্ভিস, বই ইস্যু, ডিজিটাল ক্যাটালগ বা অন্য যেকোনো জিজ্ঞাসায় আমাদের টিম আপনার পাশে রয়েছে। FAQ দেখুন অথবা সরাসরি বার্তা পাঠান।
+          </p>
         </motion.div>
 
-        {/* Quick Contact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <motion.div
-            whileHover={{ y: -6 }}
-            className="bg-white p-6 rounded-3xl border border-teal-100/80 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-teal-50 text-[#00BBA6] flex items-center justify-center text-2xl shrink-0 shadow-inner">
-              <HiPhone className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 text-base">জরুরি হেল্পলাইন</h3>
-              <p className="text-xs text-gray-500 mt-1">অফিস চলাকালীন সরাসরি কল করুন</p>
-              <p className="text-sm font-extrabold text-[#00BBA6] mt-2">+880 1700-000000</p>
-              <span className="text-[11px] text-gray-400 font-medium">রবি - বৃহ (সকাল ৯টা - বিকাল ৫টা)</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -6 }}
-            className="bg-white p-6 rounded-3xl border border-teal-100/80 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-teal-50 text-[#00BBA6] flex items-center justify-center text-2xl shrink-0 shadow-inner">
-              <HiEnvelope className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 text-base">ইমেইল সাপোর্ট</h3>
-              <p className="text-xs text-gray-500 mt-1">যেকোনো প্রশ্ন বা ফিডব্যাকের জন্য</p>
-              <p className="text-sm font-extrabold text-[#00BBA6] mt-2">support@lms-library.edu</p>
-              <span className="text-[11px] text-gray-400 font-medium">রেসপন্স টাইম: ১২ ঘন্টার মধ্যে</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -6 }}
-            className="bg-white p-6 rounded-3xl border border-teal-100/80 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-teal-50 text-[#00BBA6] flex items-center justify-center text-2xl shrink-0 shadow-inner">
-              <HiMapPin className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 text-base">লাইব্রেরি ডেস্ক</h3>
-              <p className="text-xs text-gray-500 mt-1">সরাসরি লাইব্রেরিয়ানের কাছে আসুন</p>
-              <p className="text-xs font-bold text-gray-700 mt-2">ময়মনসিংহ পলিটেকনিক ইন্সটিটিউট</p>
-              <span className="text-[11px] text-gray-400 font-medium">মেন ভবন, ২য় তলা, লাইব্রেরি রুম-২০৪</span>
-            </div>
-          </motion.div>
+        {/* Contact Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              icon: HiEnvelope,
+              title: "ইমেইল সাপোর্ট",
+              detail: "support@library.edu.bd",
+              sub: "২৪ ঘণ্টার মধ্যে উত্তর দেয়া হয়",
+              color: "text-blue-500 bg-blue-50 dark:bg-blue-950/30 border-blue-100 dark:border-blue-900/40",
+            },
+            {
+              icon: HiPhone,
+              title: "হেল্পলাইন নম্বর",
+              detail: "+৮৮০ ১৭০০-০০০০০০",
+              sub: "রবি-বৃহস্পতি (সকাল ৯টা - বিকাল ৫টা)",
+              color: "text-teal-600 dark:text-[#00BBA6] bg-teal-50 dark:bg-teal-950/30 border-teal-100 dark:border-teal-900/40",
+            },
+            {
+              icon: HiMapPin,
+              title: "লাইব্রেরি লোকেশন",
+              detail: "কেন্দ্রীয় ভবন (২য় তলা)",
+              sub: "ময়মনসিংহ পলিটেকনিক ইন্সটিটিউট",
+              color: "text-purple-500 bg-purple-50 dark:bg-purple-950/30 border-purple-100 dark:border-purple-900/40",
+            },
+            {
+              icon: HiClock,
+              title: "অফিসিয়াল সময়সূচী",
+              detail: "সকাল ৯:০০ - বিকাল ৫:০০",
+              sub: "শুক্রবার ও শনিবার বন্ধ",
+              color: "text-amber-500 bg-amber-50 dark:bg-amber-950/30 border-amber-100 dark:border-amber-900/40",
+            },
+          ].map((item, idx) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+            >
+              <div className="space-y-4">
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${item.color}`}
+                >
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-gray-800 dark:text-slate-100">{item.title}</h3>
+                  <p className="text-sm font-semibold text-[#00BBA6] mt-1">{item.detail}</p>
+                </div>
+              </div>
+              <p className="text-xs text-gray-400 dark:text-slate-500 mt-4 pt-3 border-t border-slate-50 dark:border-slate-800">
+                {item.sub}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Contact Form & Office Hours Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left 7 cols: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-teal-100/80 shadow-md space-y-6"
-          >
-            <div className="border-b border-slate-100 pb-4">
-              <span className="text-xs font-bold text-[#00BBA6] uppercase tracking-wider">মেসেজ পাঠান</span>
-              <h2 className="text-2xl font-extrabold text-gray-800 mt-1">সাপোর্ট টিকেট ও ইনকোয়ারি</h2>
-              <p className="text-xs text-gray-500 mt-1">আপনার যেকোনো সমস্যা বা জিজ্ঞাসা জানিয়ে নিচের ফর্মটি পূরণ করুন।</p>
+        {/* Main Section: FAQ + Contact Form */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* FAQ Accordion */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="flex items-center gap-2 mb-2">
+              <HiQuestionMarkCircle className="w-6 h-6 text-[#00BBA6]" />
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-100">
+                সাধারণত জিজ্ঞাসিত <span className="text-[#00BBA6]">প্রশ্নাবলী (FAQ)</span>
+              </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1.5">আপনার নাম *</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="উদা: সিয়াম আহমেদ"
-                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-gray-800 focus:outline-none focus:border-[#00BBA6] focus:bg-white transition"
-                    />
-                    <HiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1.5">ইমেইল অ্যাড্রেস *</label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="name@example.com"
-                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-gray-800 focus:outline-none focus:border-[#00BBA6] focus:bg-white transition"
-                    />
-                    <HiEnvelope className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1.5">রোল নম্বর (যদি থাকে)</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="roll"
-                      value={formData.roll}
-                      onChange={handleInputChange}
-                      placeholder="উদা: 615201"
-                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-gray-800 focus:outline-none focus:border-[#00BBA6] focus:bg-white transition"
-                    />
-                    <HiAcademicCap className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1.5">বিষয় শ্রেণী</label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-gray-800 focus:outline-none focus:border-[#00BBA6] focus:bg-white transition font-medium"
+            <div className="space-y-4">
+              {FAQ_ITEMS.map((faq, idx) => {
+                const isOpen = openFaqIndex === idx;
+                return (
+                  <div
+                    key={faq.question}
+                    className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm transition-all"
                   >
-                    <option value="General Inquiry">সাধারণ জিজ্ঞাসা</option>
-                    <option value="Book Issue">বই ইস্যু ও রিটার্ন</option>
-                    <option value="Account Issue">অ্যাঙ্কউন্ট ও লগইন সমস্যা</option>
-                    <option value="Book Request">নতুন বইয়ের অনুরোধ</option>
-                    <option value="Fine/Penalty">বিলম্ব ফি সংক্রান্ত</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1.5">বিষয় (Subject)</label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  placeholder="সংক্ষেপে সমস্যার বিষয় লিখুন"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-gray-800 focus:outline-none focus:border-[#00BBA6] focus:bg-white transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1.5">বিস্তারিত বিবরণ *</label>
-                <textarea
-                  name="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  placeholder="আপনার সমস্যা বা প্রশ্নের বিস্তারিত বিবরণ লিখুন..."
-                  className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-gray-800 focus:outline-none focus:border-[#00BBA6] focus:bg-white transition resize-none"
-                />
-              </div>
-
-              <motion.button
-                whileTap={{ scale: 0.97 }}
-                type="submit"
-                disabled={loading}
-                className="w-full py-3.5 bg-[#00BBA6] hover:bg-teal-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 text-sm disabled:opacity-60 cursor-pointer"
-              >
-                {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <>
-                    <HiPaperAirplane className="w-4 h-4 rotate-45" />
-                    <span>মেসেজ পাঠান</span>
-                  </>
-                )}
-              </motion.button>
-            </form>
-          </motion.div>
-
-          {/* Right 5 cols: FAQ Accordion */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:col-span-5 space-y-6"
-          >
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-teal-100/80 shadow-md space-y-6">
-              <div className="flex items-center gap-2 border-b border-slate-100 pb-4">
-                <HiQuestionMarkCircle className="w-6 h-6 text-[#00BBA6]" />
-                <div>
-                  <h2 className="text-xl font-extrabold text-gray-800">সাধারণ প্রশ্নাবলী (FAQ)</h2>
-                  <p className="text-xs text-gray-500">সচরাচর জিজ্ঞাসিত প্রশ্নের দ্রুত উত্তর</p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                {FAQ_ITEMS.map((item, index) => {
-                  const isOpen = openFaqIndex === index;
-                  return (
-                    <div
-                      key={index}
-                      className="border border-slate-100 rounded-2xl overflow-hidden transition-all bg-slate-50/50"
+                    <button
+                      onClick={() => toggleFaq(idx)}
+                      className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-gray-800 dark:text-slate-200 hover:text-[#00BBA6] dark:hover:text-[#00BBA6] transition-colors"
                     >
-                      <button
-                        onClick={() => toggleFaq(index)}
-                        className="w-full p-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-gray-800 hover:text-[#00BBA6] transition"
-                      >
-                        <span>{item.question}</span>
-                        <HiChevronDown
-                          className={`w-4 h-4 text-gray-400 transition-transform duration-300 shrink-0 ${
-                            isOpen ? "rotate-180 text-[#00BBA6]" : ""
-                          }`}
-                        />
-                      </button>
+                      <span className="flex items-center gap-3">
+                        <span className="w-6 h-6 rounded-full bg-teal-50 dark:bg-teal-950/50 text-[#00BBA6] text-xs font-extrabold flex items-center justify-center shrink-0">
+                          {idx + 1}
+                        </span>
+                        {faq.question}
+                      </span>
+                      <HiChevronDown
+                        className={`w-5 h-5 text-gray-400 dark:text-slate-500 shrink-0 transition-transform duration-300 ${
+                          isOpen ? "rotate-180 text-[#00BBA6]" : ""
+                        }`}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-gray-600 dark:text-slate-400 leading-relaxed border-t border-slate-50 dark:border-slate-800/60 mt-1">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <p className="px-4 pb-4 pt-1 text-xs text-gray-600 border-t border-slate-100/80 leading-relaxed">
-                              {item.answer}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+          {/* Direct Support Ticket Form */}
+          <div className="lg:col-span-6">
+            <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center gap-2 mb-6">
+                <HiChatBubbleLeftRight className="w-6 h-6 text-[#00BBA6]" />
+                <div>
+                  <h2 className="text-xl font-bold text-gray-800 dark:text-slate-100">মেসেজ পাঠান</h2>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">সরাসরি সাপোর্ট টিমের সাথে যোগাযোগের ফর্ম</p>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 mb-1">আপনার নাম *</label>
+                    <div className="relative">
+                      <HiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 w-4 h-4" />
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="আপনার নাম লিখুন"
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-[#00BBA6] transition"
+                      />
                     </div>
-                  );
-                })}
-              </div>
-            </div>
+                  </div>
 
-            {/* Quality Commitment Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-teal-950 p-6 rounded-3xl text-white space-y-3 shadow-lg">
-              <div className="flex items-center gap-2">
-                <HiShieldCheck className="w-6 h-6 text-[#00BBA6]" />
-                <h3 className="font-bold text-sm">আমাদের প্রতিশ্রুতি</h3>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                আপনার প্রতিটি অনুসন্ধান আমাদের কাছে গুরুত্বপূর্ণ। আমরা সর্বোচ্চ দ্রুততা ও নির্ভরযোগ্যতার সাথে সমাধান প্রদান করতে অঙ্গীকারবদ্ধ।
-              </p>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 mb-1">ইমেইল ঠিকানা *</label>
+                    <div className="relative">
+                      <HiEnvelope className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 w-4 h-4" />
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="example@gmail.com"
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-[#00BBA6] transition"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 mb-1">রোল / আই ডি নম্বর</label>
+                    <div className="relative">
+                      <HiAcademicCap className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 w-4 h-4" />
+                      <input
+                        type="text"
+                        name="roll"
+                        value={formData.roll}
+                        onChange={handleInputChange}
+                        placeholder="উদাহরণ: 615201"
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-[#00BBA6] transition"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 mb-1">বিষয়শ্রেণী (Category)</label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-slate-100 focus:outline-none focus:border-[#00BBA6] transition"
+                    >
+                      <option value="General Inquiry">সাধারণ জিজ্ঞাসা</option>
+                      <option value="Book Request Issue">বই ইস্যু সংক্রান্ত সমস্যা</option>
+                      <option value="Account Access">একাউন্ট সমস্যা</option>
+                      <option value="Fine & Penalty">ফাইন ও পেনাল্টি</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 mb-1">বিষয় (Subject)</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="আপনার মেসেজের সংক্ষিপ্ত বিষয়"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-[#00BBA6] transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 mb-1">বিস্তারিত বার্তা *</label>
+                  <textarea
+                    rows={4}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="আপনার সমস্যা বা বার্তাটি স্পষ্টভাবে লিখুন..."
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-[#00BBA6] transition resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3 bg-[#00BBA6] hover:bg-teal-600 text-white font-bold rounded-xl text-sm transition shadow-md shadow-teal-500/20 flex items-center justify-center gap-2 disabled:opacity-60"
+                >
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <>
+                      <HiPaperAirplane className="w-4 h-4 rotate-45" />
+                      <span>মেসেজ পাঠান</span>
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

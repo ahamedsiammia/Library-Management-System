@@ -18,7 +18,7 @@ export const bookService = {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {
@@ -34,7 +34,7 @@ export const bookService = {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {

@@ -33,7 +33,6 @@ const CATEGORIES = [
   { name: "DevOps & Cloud", nameBn: "ডেভঅপ্স ও ক্লাউড" },
   { name: "Artificial Intelligence", nameBn: "আর্টিফিশিয়াল ইন্টেলিজেন্স" },
   { name: "Cyber Security", nameBn: "সাইবার সিকিউরিটি" },
-
 ];
 
 const BooksPage: React.FC = () => {
@@ -91,7 +90,7 @@ const BooksPage: React.FC = () => {
       } else {
         setError("বই লোড করতে সমস্যা হয়েছে।");
       }
-    } catch (err) {
+    } catch {
       setError("Server error. পরে আবার চেষ্টা করুন।");
     } finally {
       setLoading(false);
@@ -141,14 +140,14 @@ const BooksPage: React.FC = () => {
         <button
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1}
-          className="w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 text-gray-500 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-600 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-800 text-gray-500 dark:text-slate-400 hover:bg-teal-50 dark:hover:bg-slate-800 hover:border-teal-200 dark:hover:border-teal-800 hover:text-teal-600 dark:hover:text-[#00BBA6] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
           <HiChevronLeft className="w-4 h-4" />
         </button>
 
         {pages.map((p, idx) =>
           p === "..." ? (
-            <span key={`ellipsis-${idx}`} className="w-9 h-9 flex items-center justify-center text-gray-400 text-sm">
+            <span key={`ellipsis-${idx}`} className="w-9 h-9 flex items-center justify-center text-gray-400 dark:text-slate-500 text-sm">
               ...
             </span>
           ) : (
@@ -158,7 +157,7 @@ const BooksPage: React.FC = () => {
               className={`w-9 h-9 flex items-center justify-center rounded-xl text-sm font-semibold transition-all ${
                 page === p
                   ? "bg-[#00BBA6] text-white shadow-md"
-                  : "border border-slate-200 text-gray-600 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-600"
+                  : "border border-slate-200 dark:border-slate-800 text-gray-600 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-800 hover:border-teal-200 dark:hover:border-teal-800 hover:text-teal-600 dark:hover:text-[#00BBA6]"
               }`}
             >
               {p}
@@ -169,7 +168,7 @@ const BooksPage: React.FC = () => {
         <button
           onClick={() => handlePageChange(page + 1)}
           disabled={page === totalPage}
-          className="w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 text-gray-500 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-600 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-800 text-gray-500 dark:text-slate-400 hover:bg-teal-50 dark:hover:bg-slate-800 hover:border-teal-200 dark:hover:border-teal-800 hover:text-teal-600 dark:hover:text-[#00BBA6] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
           <HiChevronRight className="w-4 h-4" />
         </button>
@@ -178,7 +177,7 @@ const BooksPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/60 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -187,19 +186,19 @@ const BooksPage: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 space-y-3"
         >
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-[#00BBA6] font-medium text-sm">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800/60 text-[#00BBA6] font-medium text-sm">
             <HiOutlineSparkles className="w-4 h-4" /> ডিজিটাল লাইব্রেরি ক্যাটালগ
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-slate-100">
             Explore All <span className="text-[#00BBA6]">Books</span>
           </h1>
-          <p className="text-gray-600 text-sm md:text-base max-w-xl mx-auto">
+          <p className="text-gray-600 dark:text-slate-400 text-sm md:text-base max-w-xl mx-auto">
             আমাদের সমৃদ্ধ ক্যাটালগ থেকে আপনার পছন্দের বইটি খুঁজে নিন এবং পড়া শুরু করুন।
           </p>
 
           {/* Search + Filter Bar */}
           <div className="pt-6 max-w-2xl mx-auto relative z-30">
-            <div className="bg-white p-2 sm:p-2.5 rounded-2xl sm:rounded-full border border-teal-100 shadow-sm focus-within:shadow-md focus-within:border-[#00BBA6] transition-all flex flex-col sm:flex-row items-center gap-2">
+            <div className="bg-white dark:bg-slate-900 p-2 sm:p-2.5 rounded-2xl sm:rounded-full border border-teal-100 dark:border-slate-800 shadow-sm focus-within:shadow-md focus-within:border-[#00BBA6] transition-all flex flex-col sm:flex-row items-center gap-2">
               {/* Search Input */}
               <div className="relative w-full sm:flex-1">
                 <input
@@ -207,26 +206,26 @@ const BooksPage: React.FC = () => {
                   placeholder="বইয়ের নাম, লেখক বা ISBN দিয়ে খুঁজুন..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-gray-700 focus:outline-none placeholder-gray-400"
+                  className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-gray-700 dark:text-slate-200 focus:outline-none placeholder-gray-400 dark:placeholder-slate-500"
                 />
-                <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 w-5 h-5" />
               </div>
 
-              <div className="hidden sm:block w-[1px] h-6 bg-slate-200" />
+              <div className="hidden sm:block w-[1px] h-6 bg-slate-200 dark:bg-slate-800" />
 
               {/* Category Dropdown */}
               <div ref={dropdownRef} className="relative w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="w-full sm:w-56 px-4 py-2.5 bg-slate-50 hover:bg-teal-50/60 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold text-gray-700 flex items-center justify-between gap-2 border border-slate-100 sm:border-none transition-all"
+                  className="w-full sm:w-56 px-4 py-2.5 bg-slate-50 dark:bg-slate-800/80 hover:bg-teal-50/60 dark:hover:bg-slate-800 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold text-gray-700 dark:text-slate-200 flex items-center justify-between gap-2 border border-slate-100 dark:border-slate-800 sm:border-none transition-all"
                 >
                   <span className="flex items-center gap-2 truncate">
                     <HiOutlineFunnel className="text-[#00BBA6] w-4 h-4 shrink-0" />
                     <span>{selectedCategory.nameBn}</span>
                   </span>
                   <HiChevronDown
-                    className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
+                    className={`w-4 h-4 text-gray-400 dark:text-slate-500 transition-transform duration-300 ${
                       isDropdownOpen ? "rotate-180 text-[#00BBA6]" : ""
                     }`}
                   />
@@ -239,9 +238,9 @@ const BooksPage: React.FC = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-full sm:w-60 bg-white rounded-2xl shadow-xl border border-teal-100 p-2 overflow-hidden z-50"
+                      className="absolute right-0 mt-2 w-full sm:w-60 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-teal-100 dark:border-slate-800 p-2 overflow-hidden z-50"
                     >
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1.5 border-b border-slate-100">
+                      <div className="text-[11px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider px-3 py-1.5 border-b border-slate-100 dark:border-slate-800">
                         ক্যাটাগরি সিলেক্ট করুন
                       </div>
                       <div className="space-y-1 mt-1 max-h-56 overflow-y-auto">
@@ -253,8 +252,8 @@ const BooksPage: React.FC = () => {
                               onClick={() => handleCategoryChange(cat)}
                               className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
                                 isSelected
-                                  ? "bg-teal-50 text-[#00BBA6] font-semibold"
-                                  : "text-gray-700 hover:bg-slate-50"
+                                  ? "bg-teal-50 dark:bg-teal-950/40 text-[#00BBA6] font-semibold"
+                                  : "text-gray-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
                               }`}
                             >
                               <span>{cat.nameBn}</span>
@@ -272,11 +271,11 @@ const BooksPage: React.FC = () => {
 
           {/* Result Count */}
           {meta && !loading && (
-            <p className="text-xs text-gray-400 pt-1">
+            <p className="text-xs text-gray-400 dark:text-slate-500 pt-1">
               মোট{" "}
               <span className="text-[#00BBA6] font-bold">{meta.total}</span> টি বই পাওয়া গেছে
               {debouncedSearch && (
-                <> &quot;<span className="text-gray-600">{debouncedSearch}</span>&quot; অনুযায়ী</>
+                <> &quot;<span className="text-gray-600 dark:text-slate-300">{debouncedSearch}</span>&quot; অনুযায়ী</>
               )}
             </p>
           )}
@@ -286,14 +285,14 @@ const BooksPage: React.FC = () => {
         {loading && (
           <div className="flex flex-col items-center justify-center py-24 gap-3">
             <Loader2 className="w-10 h-10 text-[#00BBA6] animate-spin" />
-            <p className="text-gray-400 text-sm font-medium">বই লোড হচ্ছে...</p>
+            <p className="text-gray-400 dark:text-slate-500 text-sm font-medium">বই লোড হচ্ছে...</p>
           </div>
         )}
 
         {/* Error State */}
         {!loading && error && (
           <div className="text-center py-16 space-y-3">
-            <HiOutlineBookmark className="w-12 h-12 mx-auto text-rose-300" />
+            <HiOutlineBookmark className="w-12 h-12 mx-auto text-rose-300 dark:text-rose-400" />
             <p className="text-base font-semibold text-rose-500">{error}</p>
             <button
               onClick={fetchBooks}
@@ -308,8 +307,8 @@ const BooksPage: React.FC = () => {
         {!loading && !error && (
           <>
             {books.length === 0 ? (
-              <div className="text-center py-16 text-gray-500 space-y-2">
-                <HiOutlineBookmark className="w-12 h-12 mx-auto text-teal-300" />
+              <div className="text-center py-16 text-gray-500 dark:text-slate-400 space-y-2">
+                <HiOutlineBookmark className="w-12 h-12 mx-auto text-teal-300 dark:text-teal-600" />
                 <p className="text-base font-semibold">কোনো বই পাওয়া যায়নি!</p>
                 <p className="text-xs">ফিল্টার পরিবর্তন করে অথবা অন্য নাম দিয়ে চেষ্টা করুন।</p>
               </div>
@@ -330,10 +329,10 @@ const BooksPage: React.FC = () => {
                         whileHover={{ y: -8 }}
                         transition={{ duration: 0.3 }}
                         key={book.id}
-                        className="bg-white rounded-3xl overflow-hidden border border-teal-100/70 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative z-10"
+                        className="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-teal-100/70 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative z-10"
                       >
                         {/* Cover Image */}
-                        <div className="relative h-56 bg-slate-100 overflow-hidden">
+                        <div className="relative h-56 bg-slate-100 dark:bg-slate-800 overflow-hidden">
                           <img
                             src={book.coverImage}
                             alt={book.title}
@@ -353,7 +352,7 @@ const BooksPage: React.FC = () => {
 
                           <button
                             onClick={() => toggleFavorite(book.id)}
-                            className="absolute top-3 right-3 w-9 h-9 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-gray-700 hover:text-red-500 shadow-sm transition-all active:scale-90"
+                            className="absolute top-3 right-3 w-9 h-9 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-full flex items-center justify-center text-gray-700 dark:text-slate-300 hover:text-red-500 shadow-sm transition-all active:scale-90"
                           >
                             {isFav ? (
                               <HiHeart className="w-5 h-5 text-red-500" />
@@ -363,7 +362,7 @@ const BooksPage: React.FC = () => {
                           </button>
 
                           {book.categoryBn && (
-                            <span className="absolute bottom-3 left-3 text-xs bg-white/90 backdrop-blur-md text-gray-800 font-medium px-2.5 py-1 rounded-lg">
+                            <span className="absolute bottom-3 left-3 text-xs bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-gray-800 dark:text-slate-200 font-medium px-2.5 py-1 rounded-lg">
                               {book.categoryBn}
                             </span>
                           )}
@@ -376,27 +375,27 @@ const BooksPage: React.FC = () => {
                               <div className="flex items-center gap-1 text-amber-500 font-bold">
                                 <HiStar className="w-4 h-4 fill-amber-400" />
                                 <span>{book.rating?.toFixed(1) ?? "—"}</span>
-                                <span className="text-gray-400 font-normal">
+                                <span className="text-gray-400 dark:text-slate-500 font-normal">
                                   ({book.reviewsCount ?? 0})
                                 </span>
                               </div>
-                              <span className="text-teal-600 font-medium bg-teal-50 px-2 py-0.5 rounded-md border border-teal-100">
+                              <span className="text-teal-600 dark:text-[#00BBA6] font-medium bg-teal-50 dark:bg-teal-950/40 px-2 py-0.5 rounded-md border border-teal-100 dark:border-teal-800/50">
                                 {book.copiesAvailable} টি কপি খালি
                               </span>
                             </div>
 
-                            <h3 className="text-lg font-bold text-gray-800 group-hover:text-[#00BBA6] transition-colors line-clamp-1">
+                            <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 group-hover:text-[#00BBA6] dark:group-hover:text-[#00BBA6] transition-colors line-clamp-1">
                               {book.title}
                             </h3>
                             {book.titleBn && (
-                              <p className="text-xs text-gray-500 font-medium line-clamp-1 mb-1">
+                              <p className="text-xs text-gray-500 dark:text-slate-400 font-medium line-clamp-1 mb-1">
                                 {book.titleBn}
                               </p>
                             )}
 
-                            <p className="text-xs text-gray-600 font-medium">
+                            <p className="text-xs text-gray-600 dark:text-slate-400 font-medium">
                               লেখক:{" "}
-                              <span className="text-gray-800 font-semibold">{book.author}</span>
+                              <span className="text-gray-800 dark:text-slate-200 font-semibold">{book.author}</span>
                             </p>
                           </div>
 
@@ -404,9 +403,9 @@ const BooksPage: React.FC = () => {
                             <Link href={`/books/${book.id}`} className="w-full">
                               <motion.button
                                 whileTap={{ scale: 0.95 }}
-                                className="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-gray-700 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-300"
+                                className="w-full py-2.5 px-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-300"
                               >
-                                <HiOutlineEye className="w-4 h-4 text-gray-500" />
+                                <HiOutlineEye className="w-4 h-4 text-gray-500 dark:text-slate-400" />
                                 <span>বিস্তারিত</span>
                               </motion.button>
                             </Link>
@@ -433,7 +432,7 @@ const BooksPage: React.FC = () => {
 
             {/* Meta info */}
             {meta && books.length > 0 && (
-              <p className="text-center text-xs text-gray-400 mt-4">
+              <p className="text-center text-xs text-gray-400 dark:text-slate-500 mt-4">
                 Page {meta.page} of {meta.totalPage} — মোট {meta.total} টি বই
               </p>
             )}

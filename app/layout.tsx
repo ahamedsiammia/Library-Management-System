@@ -3,8 +3,7 @@ import "./globals.css";
 import { Outfit, Oxanium } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const oxaniumHeading = Oxanium({ subsets: ["latin"], variable: "--font-heading" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
@@ -22,12 +21,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "font-sans", outfit.variable, oxaniumHeading.variable)}
+      suppressHydrationWarning
+      className={cn("h-full antialiased font-sans", outfit.variable, oxaniumHeading.variable)}
     >
-      <body className="min-h-screen bg-slate-50 text-gray-800 font-sans flex flex-col">
-        {children}
-        <Toaster position="top-right" richColors />
-        <ToastContainer position="top-center" />
+      <body className="min-h-screen bg-background text-foreground font-sans flex flex-col transition-colors duration-300">
+        <ThemeProvider>
+          {children}
+          <Toaster position="top-right" richColors />
+        </ThemeProvider>
       </body>
     </html>
   );
