@@ -39,10 +39,22 @@ export async function loginAction(
       };
     }
 
-    const token = data.accessToken || data.token || data.data?.accessToken;
-    if (token) {
+    const accessToken = data.accessToken || data.token || data.data?.accessToken;
+    const refreshToken = data.refreshToken || data.token || data.data?.refreshToken;
+
+    if (accessToken) {
       const cookieStore = await cookies();
-      cookieStore.set("accessToken", token, {
+      cookieStore.set("accessToken", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+      });
+    }
+
+    if (refreshToken) {
+      const cookieStore = await cookies();
+      cookieStore.set("refreshToken", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
