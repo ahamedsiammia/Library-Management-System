@@ -1,22 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { handleProxyAuth } from "@/lib/proxy";
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const token = request.cookies.get("accessToken")?.value;
-
-  // Book detail pages require login
-  const isBookDetails = pathname.startsWith("/books/") && pathname !== "/books";
-
-  // Dashboard requires login
-  const isDashboard = pathname.startsWith("/dashboard");
-
-  if ((isBookDetails || isDashboard) && !token) {
-    const registerUrl = new URL("/register", request.url);
-    registerUrl.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(registerUrl);
-  }
-
-  return NextResponse.next();
+  return handleProxyAuth(request, {
+    protectedRoutes: ["/dashboard"],
+  });
 }
 
 export const config = {
