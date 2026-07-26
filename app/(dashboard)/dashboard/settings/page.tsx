@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
+  process.env.NEXT_PUBLIC_APP_URL || "https://library-management-system-backend-fawn.vercel.app";
 
 interface PolicyField {
   key: keyof SystemSettings;
