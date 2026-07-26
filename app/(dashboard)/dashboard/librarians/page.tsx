@@ -18,9 +18,11 @@ import {
 import { ManagedUser, CreateLibrarianPayload } from "@/types/moderator.types";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
+import {
+  getAllUsersAction,
+  updateUserStatusAction,
+  createLibrarianAction,
+} from "@/app/(dashboard)/_actions/moderator.actions";
 
 const SHIFT_OPTIONS = [
   { value: "MORNING", label: "Morning Shift (সকাল)" },
@@ -53,12 +55,12 @@ export default function LibrariansPage() {
   const fetchLibrarians = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/moderator/users?role=LIBRARYAN`, {
-        credentials: "include",
-        cache: "no-store",
-      });
-      const data = await res.json();
-      if (res.ok) setLibrarians(data.data || []);
+      const res = await getAllUsersAction("LIBRARYAN");
+      if (res.success && res.data) {
+        setLibrarians(res.data);
+      } else {
+        toast.error(res.message || "লাইব্রেরিয়ান তথ্য লোড করতে ব্যর্থ হয়েছে।");
+      }
     } catch {
       toast.error("লাইব্রেরিয়ান তথ্য লোড করতে ব্যর্থ হয়েছে।");
     } finally {
@@ -88,20 +90,17 @@ export default function LibrariansPage() {
     setSubmitting(true);
     try {
       const { confirmPassword, ...payload } = form;
-      const res = await fetch(`${API_BASE_URL}/moderator/librarians`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ ...payload, roll: Number(form.roll) }),
+      const res = await createLibrarianAction({
+        ...payload,
+        roll: Number(form.roll),
       });
-      const data = await res.json();
-      if (res.ok) {
+      if (res.success) {
         toast.success(`${form.name}-এর লাইব্রেরিয়ান অ্যাকাউন্ট তৈরি হয়েছে!`);
         setShowModal(false);
         setForm({ name: "", email: "", password: "", confirmPassword: "", roll: 0, instituteName: "", semester: "6th", shift: "MORNING" });
         fetchLibrarians();
       } else {
-        toast.error(data.message || "লাইব্রেরিয়ান অ্যাকাউন্ট তৈরি ব্যর্থ হয়েছে।");
+        toast.error(res.message || "লাইব্রেরিয়ান অ্যাকাউন্ট তৈরি ব্যর্থ হয়েছে।");
       }
     } catch {
       toast.error("সার্ভারের সাথে সংযোগ ব্যর্থ হয়েছে।");
@@ -114,17 +113,14 @@ export default function LibrariansPage() {
     const newStatus = lib.activeStatus === "ACTIVE" ? "BLOCKED" : "ACTIVE";
     setUpdating(lib.id);
     try {
-      const res = await fetch(`${API_BASE_URL}/moderator/users/${lib.id}/status`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (res.ok) {
+      const res = await updateUserStatusAction(lib.id, newStatus);
+      if (res.success) {
         setLibrarians((prev) =>
           prev.map((l) => (l.id === lib.id ? { ...l, activeStatus: newStatus } : l))
         );
         toast.success(newStatus === "ACTIVE" ? "লাইব্রেরিয়ান অ্যাকাউন্ট সক্রিয় করা হয়েছে।" : "লাইব্রেরিয়ান সাসপেন্ড করা হয়েছে।");
+      } else {
+        toast.error(res.message || "স্ট্যাটাস আপডেট ব্যর্থ হয়েছে।");
       }
     } catch {
       toast.error("স্ট্যাটাস আপডেট ব্যর্থ হয়েছে।");
