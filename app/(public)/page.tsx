@@ -6,6 +6,7 @@ import LiveStatistics from "./_components/LiveStatistics";
 import Testimonials from "./_components/Testimonials";
 import FAQSection from "./_components/FAQSection";
 import WhyChooseUs from "./_components/WhyChooseUs";
+import ChatBot from "@/components/chat/chat-bot";
 
 export default function HomePage() {
   return (
@@ -17,6 +18,9 @@ export default function HomePage() {
       <Testimonials />
       <WhyChooseUs />
       <FAQSection />
+      
+      {/* Floating Messenger-like ChatBot */}
+      <ChatBot />
     </div>
   );
 }
