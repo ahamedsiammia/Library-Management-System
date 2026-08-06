@@ -5,59 +5,87 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, Send, User, Sparkles, Loader2, BookOpen, MessageCircle, X } from "lucide-react";
+import { Bot, Send, User, Sparkles, Loader2, BookOpen, MessageCircle, X, AlertCircle } from "lucide-react";
 
 type ChatMessage = {
-  role: "USER" | "LIBRARYAN" | "MODARATOR" | "MODEL";
-  content: string;
+  role: "user" | "model";
+  parts: [{ text: string }];
+  isError?: boolean;
 };
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
-  const [conversationId, setConversationId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (isOpen) {
-      scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+      scrollToBottom();
     }
-  }, [messages, loading, isOpen]);
+  }, [messages, isLoading, isOpen]);
 
-  async function sendMessage(textToSend?: string) {
+  const sendMessage = async (textToSend?: string) => {
     const query = textToSend || input;
-    if (!query.trim() || loading) return;
+    if (!query.trim() || isLoading) return;
 
-    const userMessage: ChatMessage = { role: "USER", content: query };
-    setMessages((prev) => [...prev, userMessage]);
+    const userMessage: ChatMessage = {
+      role: "user",
+      parts: [{ text: query.trim() }],
+    };
+
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     if (!textToSend) setInput("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
-      const res = await fetch(`https://library-management-system-backend-fawn.vercel.app/aichat`, {
+      const res = await fetch("https://library-management-system-backend-fawn.vercel.app/aichat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          conversationId,
-          message: userMessage.content,
-        }),
+        body: JSON.stringify({ messages: updatedMessages }),
       });
 
       const data = await res.json();
 
-      setConversationId(data.conversationId);
-      setMessages((prev) => [
-        ...prev,
-        { role: "USER", content: data.reply },
-      ]);
+      if (res.ok && data.reply) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "model",
+            parts: [{ text: data.reply }],
+          },
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "model",
+            parts: [{ text: data.error || "সার্ভারে সমস্যা দেখা দিয়েছে।" }],
+            isError: true,
+          },
+        ]);
+      }
     } catch (err) {
       console.error("Chat error:", err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "model",
+          parts: [{ text: "নেটওয়ার্ক কানেকশন ফেইল্ড! অনুগ্রহ করে আবার চেষ্টা করুন।" }],
+          isError: true,
+        },
+      ]);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
@@ -126,39 +154,54 @@ export default function ChatBot() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {messages.map((msg, i) => (
-                    <div
-                      key={i}
-                      className={`flex gap-2 text-xs sm:text-sm ${
-                        msg.role === "USER" ? "justify-end" : "justify-start"
-                      }`}
-                    >
-                      {msg.role === "MODEL" && (
-                        <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs">
-                          <Bot className="w-3.5 h-3.5" />
-                        </div>
-                      )}
-
+                  {messages.map((msg, i) => {
+                    const isUser = msg.role === "user";
+                    return (
                       <div
-                        className={`px-3 py-2 rounded-2xl max-w-[80%] whitespace-pre-wrap leading-relaxed shadow-sm ${
-                          msg.role === "USER"
-                            ? "bg-primary text-primary-foreground rounded-br-none"
-                            : "bg-muted text-foreground rounded-bl-none border border-border/40"
+                        key={i}
+                        className={`flex gap-2 text-xs sm:text-sm ${
+                          isUser ? "justify-end" : "justify-start"
                         }`}
                       >
-                        {msg.content}
-                      </div>
+                        {!isUser && (
+                          <div
+                            className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs ${
+                              msg.isError
+                                ? "bg-destructive/10 text-destructive border border-destructive/20"
+                                : "bg-primary/10 text-primary"
+                            }`}
+                          >
+                            {msg.isError ? (
+                              <AlertCircle className="w-3.5 h-3.5" />
+                            ) : (
+                              <Bot className="w-3.5 h-3.5" />
+                            )}
+                          </div>
+                        )}
 
-                      {msg.role === "USER" && (
-                        <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0 text-xs">
-                          <User className="w-3.5 h-3.5" />
+                        <div
+                          className={`px-3 py-2 rounded-2xl max-w-[80%] whitespace-pre-wrap leading-relaxed shadow-sm ${
+                            isUser
+                              ? "bg-primary text-primary-foreground rounded-br-none"
+                              : msg.isError
+                              ? "bg-destructive/10 text-destructive border border-destructive/20 rounded-bl-none"
+                              : "bg-muted text-foreground rounded-bl-none border border-border/40"
+                          }`}
+                        >
+                          {msg.parts[0].text}
                         </div>
-                      )}
-                    </div>
-                  ))}
+
+                        {isUser && (
+                          <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0 text-xs">
+                            <User className="w-3.5 h-3.5" />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
 
                   {/* Loading indicator */}
-                  {loading && (
+                  {isLoading && (
                     <div className="flex gap-2 justify-start items-center">
                       <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
                         <Bot className="w-3.5 h-3.5" />
@@ -189,12 +232,12 @@ export default function ChatBot() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="আপনার প্রশ্ন লিখুন..."
                 className="flex-1 bg-background text-xs rounded-xl focus-visible:ring-1 border-border/60 h-9"
-                disabled={loading}
+                disabled={isLoading}
               />
               <Button
                 type="submit"
                 size="icon"
-                disabled={loading || !input.trim()}
+                disabled={isLoading || !input.trim()}
                 className="rounded-xl shrink-0 h-9 w-9"
               >
                 <Send className="w-3.5 h-3.5" />
@@ -211,11 +254,7 @@ export default function ChatBot() {
         size="icon"
         className="h-13 w-13 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-primary text-primary-foreground"
       >
-        {isOpen ? (
-          <X className="w-6 h-6" />
-        ) : (
-          <MessageCircle className="w-6 h-6" />
-        )}
+        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
         <span className="sr-only">Toggle Chat</span>
       </Button>
     </div>
