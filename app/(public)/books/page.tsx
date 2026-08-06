@@ -21,7 +21,6 @@ import {
 import { bookService } from "@/services/book.service";
 import { Book, BookMeta } from "@/types/book.types";
 import { Loader2 } from "lucide-react";
-import ChatBot from "@/components/chat/chat-bot";
 
 const CATEGORIES = [
   { name: "", nameBn: "সকল ক্যাটাগরি" },
@@ -440,7 +439,6 @@ const BooksPage: React.FC = () => {
           </>
         )}
       </div>
-      <ChatBot></ChatBot>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Outfit, Oxanium } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import ChatBot from "@/components/chat/chat-bot";
 
 const oxaniumHeading = Oxanium({ subsets: ["latin"], variable: "--font-heading" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
@@ -28,6 +29,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <Toaster position="top-right" richColors />
+          <ChatBot></ChatBot>
         </ThemeProvider>
       </body>
     </html>

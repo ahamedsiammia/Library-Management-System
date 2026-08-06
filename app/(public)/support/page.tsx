@@ -21,7 +21,6 @@ import {
   HiCheckCircle,
   HiChevronDown,
 } from "react-icons/hi2";
-import ChatBot from "@/components/chat/chat-bot";
 
 const FAQ_ITEMS = [
   {
@@ -349,7 +348,6 @@ export default function SupportPage() {
           </div>
         </div>
       </div>
-      <ChatBot></ChatBot>
     </div>
   );
 }

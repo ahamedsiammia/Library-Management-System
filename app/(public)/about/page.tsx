@@ -11,7 +11,6 @@ import {
 } from "react-icons/hi2";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
-import ChatBot from "@/components/chat/chat-bot";
 
 interface Highlight {
   id: number;
@@ -236,7 +235,6 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <ChatBot></ChatBot>
     </div>
   );
 };

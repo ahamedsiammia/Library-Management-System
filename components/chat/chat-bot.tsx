@@ -36,7 +36,7 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await fetch(`https://library-management-system-backend-fawn.vercel.app/api/chat`, {
+      const res = await fetch(`https://library-management-system-backend-fawn.vercel.app/aichat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
