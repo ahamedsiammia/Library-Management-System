@@ -18,9 +18,7 @@ export async function loginAction(
   }
 
   const backendUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://library-management-system-backend-fawn.vercel.app";
-
+    process.env.NEXT_PUBLIC_BACKEND_APP_URL
   try {
     const res = await fetch(`${backendUrl}/user/login`, {
       method: "POST",
@@ -30,7 +28,11 @@ export async function loginAction(
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await res.json();
+    const result = await res.json();
+
+    const data = result.data
+
+    console.log(data,"s;lkedfjh");
 
     if (!res.ok || data.success === false) {
       return {

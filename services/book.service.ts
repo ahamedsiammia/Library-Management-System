@@ -1,8 +1,7 @@
 import { Book, BookApiResponse, BookQuery } from "@/types/book.types";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://library-management-system-backend-fawn.vercel.app";
-
+  process.env.NEXT_PUBLIC_BACKEND_APP_URL;
 export const bookService = {
   async getAllBooks(query?: BookQuery): Promise<BookApiResponse> {
     const params = new URLSearchParams();
@@ -21,11 +20,14 @@ export const bookService = {
       next: { revalidate: 60 },
     });
 
+    
     if (!res.ok) {
       throw new Error(`Failed to fetch books: ${res.statusText}`);
     }
+    
+    const result = await res.json();
 
-    return res.json();
+    return result
   },
 
   async getBookById(id: string): Promise<{ success: boolean; data: Book; message?: string }> {

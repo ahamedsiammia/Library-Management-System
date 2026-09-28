@@ -18,7 +18,7 @@ const RegisterComponent: React.FC = () => {
     if (state) {
       if (state.success) {
         toast.success(state.message || "Registered successfully!");
-        router.push("/");
+        router.push("/verified");
         router.refresh();
       } else {
         toast.error(state.message || "Registration failed.");

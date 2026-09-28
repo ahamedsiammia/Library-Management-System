@@ -164,7 +164,7 @@ export default function ProfilePage() {
 
           {/* Quick Actions */}
           <div className="px-6 pb-8 flex flex-wrap gap-3">
-            {user.role === "MODARATOR" && (
+            {user.role === "MODERATO" && (
               <Link
                 href="/dashboard"
                 className="px-5 py-2.5 bg-[#00BBA6] hover:bg-teal-600 text-white font-bold rounded-xl text-xs transition shadow-md"

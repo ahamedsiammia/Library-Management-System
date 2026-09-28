@@ -25,8 +25,7 @@ export async function registerAction(
   }
 
   const backendUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://library-management-system-backend-fawn.vercel.app";
+    process.env.NEXT_PUBLIC_BACKEND_APP_URL ;
 
   try {
     const res = await fetch(`${backendUrl}/user/register`, {
@@ -45,7 +44,9 @@ export async function registerAction(
       }),
     });
 
-    const data = await res.json();
+    const result = await res.json();
+
+    const data = result.data
 
     if (!res.ok || data.success === false) {
       return {
@@ -54,21 +55,11 @@ export async function registerAction(
       };
     }
 
-    const token = data.accessToken || data.token || data.data?.accessToken;
-    if (token) {
-      const cookieStore = await cookies();
-      cookieStore.set("accessToken", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-      });
-    }
 
     return {
       success: true,
       message: data.message || "Registration completed successfully!",
-      data: data.data || data,
+      data: data,
     };
   } catch (error: any) {
     return {
