@@ -1,11 +1,12 @@
-import React from 'react';
+"use server"
+import VerifyEmail from '../_components/verifiedEmail';
 
-const page = () => {
+const verifiedPage = async() => {
     return (
         <div>
-            ;lsdkfhasdlkjf
+            <VerifyEmail></VerifyEmail>
         </div>
     );
 };
 
-export default page;
+export default verifiedPage;

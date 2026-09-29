@@ -44,17 +44,15 @@ export async function registerAction(
       }),
     });
 
-    const result = await res.json();
+    const data = await res.json();
 
-    const data = result.data
-
+console.log(data,"this is response data");
     if (!res.ok || data.success === false) {
       return {
         success: false,
         message: data.message || "Registration failed. Please check input values.",
       };
     }
-
 
     return {
       success: true,
