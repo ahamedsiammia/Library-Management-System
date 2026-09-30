@@ -15,18 +15,33 @@ const VerifyEmail = () => {
   const [email, setEmail] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
 const router = useRouter()
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = await verifyEmail(email , otp)
+const [loading, setLoading] = useState<boolean>(false);
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+    const data = await verifyEmail(email, otp);
+
     if (data?.success === true) {
-            toast.success(data.message)
+      toast.success(data.message);
       router.push("/books");
+      return;
     }
-    if(data.success === false){
-        toast.error(data.message)
-        router.push("/register")
+
+    if (data?.success === false) {
+      toast.error(data.message);
+      router.push("/register");
+      return;
     }
-  };
+  } catch (error) {
+    toast.error("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div>
@@ -159,14 +174,24 @@ const router = useRouter()
             </div>
 
             {/* Verify Button */}
-            <button
-              type="submit"
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#00BBA6] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#00BBA6]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0F766E] hover:shadow-xl hover:shadow-[#0F766E]/20 active:translate-y-0"
-            >
-              <span>Verify Email</span>
+<button
+  type="submit"
+  disabled={loading}
+  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#00BBA6] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#00BBA6]/20 transition-all duration-300 hover:bg-[#0F766E] hover:shadow-xl hover:shadow-[#0F766E]/20 disabled:cursor-not-allowed disabled:opacity-70"
+>
+  {loading ? (
+    <>
+      <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+      <span>Verifying...</span>
+    </>
+  ) : (
+    <>
+      <span>Verify Email</span>
 
-              <HiOutlineArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
+      <HiOutlineArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+    </>
+  )}
+</button>
 
             {/* Security Info */}
             <div className="rounded-xl border border-teal-100 bg-teal-50/60 px-4 py-3.5">

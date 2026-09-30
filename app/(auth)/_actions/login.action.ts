@@ -43,24 +43,22 @@ export async function loginAction(
 
     const accessToken = data.accessToken || data.token || data.data?.accessToken;
     const refreshToken = data.refreshToken || data.token || data.data?.refreshToken;
-
+    
     if (accessToken) {
       const cookieStore = await cookies();
       cookieStore.set("accessToken", accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
+            httpOnly : true,
+            maxAge : 60 * 60 * 24 ,
+            sameSite : "lax"
       });
     }
 
     if (refreshToken) {
       const cookieStore = await cookies();
       cookieStore.set("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
+            httpOnly : true,
+            maxAge : 60 * 60 * 24 *  7,
+            sameSite : "lax"
       });
     }
 

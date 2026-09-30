@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { registerAction } from "../_actions/register.action";
 import LoginComponent from "./LoginComponent";
+import { CardContent } from "@/components/ui/card";
+import { GoogleSignInCard } from "./google-signin-card";
 
 const RegisterComponent: React.FC = () => {
   const [authMode, setAuthMode] = useState<"register" | "login">("register");
@@ -30,6 +32,8 @@ const RegisterComponent: React.FC = () => {
     setAuthMode(mode);
     setShowPassword(false);
   };
+
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
 
   return (
     <div className="w-full max-w-xl bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-teal-100/50 p-6 md:p-8 transition-all duration-300">
@@ -206,6 +210,15 @@ const RegisterComponent: React.FC = () => {
                 <span>Sign Up</span>
               )}
             </button>
+             <CardContent className="flex flex-col gap-0">
+          {clientId ? (
+            <GoogleSignInCard clientId={clientId} />
+          ) : (
+            <p className="text-sm text-destructive">
+              Missing NEXT_PUBLIC_GOOGLE_CLIENT_ID in .env.local
+            </p>
+          )}
+        </CardContent>
           </form>
         </>
       ) : (

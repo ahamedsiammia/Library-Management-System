@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { IconType } from "react-icons";
 import {
   HiOutlineChartBarSquare,
   HiOutlineUsers,
@@ -16,13 +17,97 @@ import {
   HiOutlineArrowRightOnRectangle,
   HiOutlineBell,
   HiOutlineHome,
+  HiOutlineUser,
+  HiOutlineBookmark,
+  HiOutlineClock,
+  HiOutlineFlag,
+  HiOutlineClipboardDocumentList,
 } from "react-icons/hi2";
 import { useAuth } from "@/hooks/useAuth";
 import { logoutAction } from "@/app/(auth)/_actions/auth.actions";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
-const NAV_ITEMS = [
+type NavItem = {
+  label: string;
+  labelBn: string;
+  href: string;
+  icon: IconType;
+  exact?: boolean;
+};
+
+/* ───────────── ROLE ONUJAYI NAV ITEMS ─────────────
+   href gulo apnar asol route onujayi change korben */
+
+const USER_NAV: NavItem[] = [
+  {
+    label: "My Dashboard",
+    labelBn: "আমার ড্যাশবোর্ড",
+    href: "/dashboard",
+    icon: HiOutlineChartBarSquare,
+    exact: true,
+  },
+  // {
+  //   label: "Book Catalog",
+  //   labelBn: "বুক ক্যাটালগ",
+  //   href: "/",
+  //   icon: HiOutlineBookOpen,
+  // },
+  {
+    label: "Borrowed Books",
+    labelBn: "ধার নেওয়া বই",
+    href: "/dashboard/borrowed",
+    icon: HiOutlineBookmark,
+  },
+  // {
+  //   label: "Borrow History",
+  //   labelBn: "ধার নেওয়ার ইতিহাস",
+  //   href: "/dashboard/history",
+  //   icon: HiOutlineClock,
+  // },
+  // {
+  //   label: "My Profile",
+  //   labelBn: "আমার প্রোফাইল",
+  //   href: "/dashboard/profile",
+  //   icon: HiOutlineUser,
+  // },
+];
+
+const MODERATOR_NAV: NavItem[] = [
+  {
+    label: "Moderator Panel",
+    labelBn: "মডারেটর প্যানেল",
+    href: "/dashboard",
+    icon: HiOutlineChartBarSquare,
+    exact: true,
+  },
+  // {
+  //   label: "Book Catalog",
+  //   labelBn: "বুক ক্যাটালগ",
+  //   href: "/books",
+  //   icon: HiOutlineBookOpen,
+  // },
+  // {
+  //   label: "Manage Requests",
+  //   labelBn: "রিকোয়েস্ট ম্যানেজ",
+  //   href: "/dashboard/requests",
+  //   icon: HiOutlineClipboardDocumentList,
+  // },
+  // {
+  //   label: "Reports",
+  //   labelBn: "রিপোর্টস",
+  //   href: "/dashboard/reports",
+  //   icon: HiOutlineFlag,
+  // },
+  // {
+  //   label: "My Profile",
+  //   labelBn: "আমার প্রোফাইল",
+  //   href: "/dashboard/profile",
+  //   icon: HiOutlineUser,
+  // },
+];
+
+const ADMIN_NAV: NavItem[] = [
   {
     label: "Command Center",
     labelBn: "ড্যাশবোর্ড",
@@ -30,38 +115,49 @@ const NAV_ITEMS = [
     icon: HiOutlineChartBarSquare,
     exact: true,
   },
-  {
-    label: "User Management",
-    labelBn: "ইউজার ম্যানেজমেন্ট",
-    href: "/dashboard/users",
-    icon: HiOutlineUsers,
-  },
-  {
-    label: "Librarian Staff",
-    labelBn: "লাইব্রেরিয়ান স্টাফ",
-    href: "/dashboard/librarians",
-    icon: HiOutlineUserGroup,
-  },
-  {
-    label: "Book Catalog",
-    labelBn: "বুক ক্যাটালগ",
-    href: "/books",
-    icon: HiOutlineBookOpen,
-  },
-  {
-    label: "System Settings",
-    labelBn: "সিস্টেম সেটিংস",
-    href: "/dashboard/settings",
-    icon: HiOutlineCog6Tooth,
-  },
-  {
-    label: "Audit Logs",
-    labelBn: "অডিট লগস",
-    href: "/dashboard/logs",
-    icon: HiOutlineDocumentText,
-  },
+  // {
+  //   label: "User Management",
+  //   labelBn: "ইউজার ম্যানেজমেন্ট",
+  //   href: "/dashboard/users",
+  //   icon: HiOutlineUsers,
+  // },
+  // {
+  //   label: "Librarian Staff",
+  //   labelBn: "লাইব্রেরিয়ান স্টাফ",
+  //   href: "/dashboard/librarians",
+  //   icon: HiOutlineUserGroup,
+  // },
+  // {
+  //   label: "Book Catalog",
+  //   labelBn: "বুক ক্যাটালগ",
+  //   href: "/books",
+  //   icon: HiOutlineBookOpen,
+  // },
+  // {
+  //   label: "System Settings",
+  //   labelBn: "সিস্টেম সেটিংস",
+  //   href: "/dashboard/settings",
+  //   icon: HiOutlineCog6Tooth,
+  // },
+  // {
+  //   label: "Audit Logs",
+  //   labelBn: "অডিট লগস",
+  //   href: "/dashboard/logs",
+  //   icon: HiOutlineDocumentText,
+  // },
 ];
 
+const NAV_BY_ROLE: Record<string, NavItem[]> = {
+  USER: USER_NAV,
+  MODERATOR: MODERATOR_NAV,
+  ADMIN: ADMIN_NAV,
+};
+
+const ROLE_LABEL: Record<string, string> = {
+  USER: "User",
+  MODERATOR: "Moderator",
+  ADMIN: "Admin",
+};
 export default function DashboardLayout({
   children,
 }: {
@@ -71,20 +167,26 @@ export default function DashboardLayout({
   const { user, loading } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const isActive = (item: (typeof NAV_ITEMS)[0]) =>
-    item.exact ? pathname === item.href : pathname.startsWith(item.href);
+  // Current user-er role onujayi nav items
+  const navItems: NavItem[] = user ? (NAV_BY_ROLE[user?.role] ?? []) : [];
+  const roleLabel = user ? (ROLE_LABEL[user?.role] ?? user.role) : "";
 
-  const currentPage = NAV_ITEMS.find((item) => isActive(item));
+  
+  const isActive = (item: NavItem) => {
+    if (item.exact) return pathname === item.href;
+    return pathname === item.href || pathname.startsWith(item.href + "/");
+  };
+  const currentPage = navItems.find((item) => isActive(item));
 
   const handleLogout = async () => {
     await logoutAction();
     window.location.href = "/register";
   };
 
-  // Role guard
+  // Role guard: je role er nav nai, take dashboard-e dhukte dibe na
   useEffect(() => {
-    if (!loading && user && user.role !== "MODARATOR") {
-      toast.error("শুধুমাত্র Moderator এই পেজ অ্যাক্সেস করতে পারবেন।");
+    if (!loading && user && !NAV_BY_ROLE[user?.role]) {
+      toast.error("আপনার এই পেজ অ্যাক্সেস করার অনুমতি নেই।");
       window.location.href = "/";
     }
   }, [user, loading]);
@@ -113,7 +215,6 @@ export default function DashboardLayout({
       )}
 
       {/* ══════════════════════ SIDEBAR ══════════════════════ */}
-      {/* Desktop: always visible static. Mobile: slide in from left */}
       <aside
         className={`
           fixed top-0 left-0 h-full w-64 z-40 flex flex-col
@@ -134,7 +235,7 @@ export default function DashboardLayout({
                 LMS
               </p>
               <p className="text-[#00BBA6] text-[10px] font-bold uppercase tracking-widest">
-                Moderator
+                {user?.role}
               </p>
             </div>
           </div>
@@ -160,7 +261,7 @@ export default function DashboardLayout({
 
         {/* Nav */}
         <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
-          {NAV_ITEMS.map((item) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
             const active = isActive(item);
             return (
@@ -190,14 +291,14 @@ export default function DashboardLayout({
           {user && (
             <div className="px-3 py-2.5 rounded-xl bg-[var(--sidebar-hover-bg)] border border-[var(--sidebar-border)] flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#00BBA6] to-teal-700 flex items-center justify-center text-white font-extrabold text-sm uppercase shadow">
-                {user.name?.charAt(0) || "M"}
+                {user.name?.charAt(0) || "U"}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-xs truncate text-foreground">
                   {user.name}
                 </p>
                 <span className="inline-block text-[10px] bg-[#00BBA6]/15 text-[#00BBA6] px-2 py-0.5 rounded-full font-bold mt-0.5">
-                  Moderator
+                  {roleLabel}
                 </span>
               </div>
             </div>
@@ -216,7 +317,6 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col min-h-screen min-w-0">
         {/* Top bar */}
         <header className="dashboard-topbar sticky top-0 z-20 px-4 sm:px-6 py-3.5 flex items-center gap-4">
-          {/* Mobile hamburger */}
           <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-muted-foreground hover:text-foreground transition"
@@ -224,17 +324,16 @@ export default function DashboardLayout({
             <HiOutlineBars3 className="w-6 h-6" />
           </button>
 
-          {/* Page title */}
           <div className="flex-1 hidden sm:block">
             <h2 className="font-bold text-base text-foreground">
               {currentPage?.label || "Dashboard"}
             </h2>
-            <p className="text-xs text-muted-foreground">{currentPage?.labelBn}</p>
+            <p className="text-xs text-muted-foreground">
+              {currentPage?.labelBn}
+            </p>
           </div>
 
-          {/* Right controls */}
           <div className="flex items-center gap-2 ml-auto">
-            {/* Topbar Return Home Button */}
             <Link
               href="/"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary border border-border text-foreground hover:bg-[#00BBA6]/10 hover:border-[#00BBA6]/30 hover:text-[#00BBA6] transition text-xs font-bold"
@@ -253,7 +352,7 @@ export default function DashboardLayout({
             {user && (
               <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-secondary border border-border">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#00BBA6] to-teal-700 flex items-center justify-center text-white font-bold text-xs uppercase">
-                  {user.name?.charAt(0) || "M"}
+                  {user.name?.charAt(0) || "U"}
                 </div>
                 <span className="text-foreground font-semibold text-xs">
                   {user.name}

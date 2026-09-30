@@ -16,7 +16,7 @@ const LoginComponent: React.FC = () => {
     if (state) {
       if (state.success) {
         toast.success(state.message || "Logged in successfully!");
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
       } else {
         toast.error(state.message || "Login failed.");
