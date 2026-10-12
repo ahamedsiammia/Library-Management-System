@@ -22,6 +22,7 @@ import {
   HiOutlineClock,
   HiOutlineFlag,
   HiOutlineClipboardDocumentList,
+  HiOutlineCreditCard,
 } from "react-icons/hi2";
 import { useAuth } from "@/hooks/useAuth";
 import { logoutAction } from "@/app/(auth)/_actions/auth.actions";
@@ -59,18 +60,24 @@ const USER_NAV: NavItem[] = [
     href: "/dashboard/borrowed",
     icon: HiOutlineBookmark,
   },
+{
+  label: "Payments",
+  labelBn: "পেমেন্ট",
+  href: "/dashboard/payments",
+  icon: HiOutlineCreditCard,
+},
   // {
   //   label: "Borrow History",
   //   labelBn: "ধার নেওয়ার ইতিহাস",
   //   href: "/dashboard/history",
   //   icon: HiOutlineClock,
   // },
-  // {
-  //   label: "My Profile",
-  //   labelBn: "আমার প্রোফাইল",
-  //   href: "/dashboard/profile",
-  //   icon: HiOutlineUser,
-  // },
+  {
+    label: "My Profile",
+    labelBn: "আমার প্রোফাইল",
+    href: "/profile",
+    icon: HiOutlineUser,
+  },
 ];
 
 const MODERATOR_NAV: NavItem[] = [

@@ -10,9 +10,8 @@ import {
 } from "@/types/moderator.types";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://library-management-system-backend-fawn.vercel.app";
-
+  process.env.NEXT_PUBLIC_API_URL 
+  
 async function getAuthHeaders() {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;

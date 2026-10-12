@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { motion } from "framer-motion";
 import {
@@ -15,9 +14,15 @@ import {
 } from "react-icons/hi2";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { HiOutlineCamera } from "react-icons/hi2";
+import { uploadProfile } from "@/app/(dashboard)/_actions/fetch-api";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const { user, loading } = useAuth();
+  const router = useRouter();
 
   if (loading) {
     return (
@@ -27,6 +32,8 @@ export default function ProfilePage() {
       </div>
     );
   }
+
+
 
   if (!user) {
     return (
@@ -49,6 +56,22 @@ export default function ProfilePage() {
       </div>
     );
   }
+
+const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("profileImage", file); // ব্যাকএন্ডের upload.single("image") এর নাম
+
+  const result = await uploadProfile(formData); // file না, formData পাঠান
+  if(result.success === true){
+    toast.success(result.message)
+    router.refresh()
+  };
+
+  e.target.value = "";
+};
 
   const roleLabel =
     user.role === "MODARATOR"
@@ -87,9 +110,43 @@ export default function ProfilePage() {
           {/* Header Banner */}
           <div className="bg-gradient-to-r from-[#00BBA6] via-teal-600 to-teal-800 p-8 text-white relative">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-              <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-900 text-[#00BBA6] flex items-center justify-center text-4xl font-extrabold shadow-lg shrink-0 uppercase border-4 border-white/30">
+              {/* <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-900 text-[#00BBA6] flex items-center justify-center text-4xl font-extrabold shadow-lg shrink-0 uppercase border-4 border-white/30">
                 {user.name?.charAt(0) || "U"}
-              </div>
+              </div> */}
+{/* Avatar */}
+<div className="relative h-24 w-24 shrink-0">
+  <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-white/30 bg-white shadow-lg dark:bg-slate-900">
+    {user?.imageUrl ? (
+      <Image
+        src={user.imageUrl}
+        alt={user.name ?? "Profile"}
+        fill
+        sizes="96px"
+        quality={90}
+        className="object-cover"
+      />
+    ) : (
+      <div className="flex h-full w-full items-center justify-center text-4xl font-extrabold uppercase text-[#00BBA6]">
+        {user.name?.charAt(0) || "U"}
+      </div>
+    )}
+  </div>
+
+  {/* Camera icon + file input */}
+  <label
+    aria-label="প্রোফাইল ছবি পরিবর্তন করুন"
+    className="absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-[#00BBA6] text-white shadow-md transition hover:scale-110 hover:bg-teal-700 dark:border-slate-900"
+  >
+    <HiOutlineCamera className="h-4 w-4" />
+    <input
+      type="file"
+      accept="image/*"
+      className="hidden"
+      onChange={handleImageChange}
+    />
+  </label>
+</div>
+
               <div className="text-center sm:text-left space-y-1">
                 <h2 className="text-2xl font-extrabold">{user.name}</h2>
                 <p className="text-teal-100 text-sm">{user.email}</p>
