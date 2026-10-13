@@ -106,12 +106,12 @@ const LIBRARIAN_NAV: NavItem[] = [
   href: "/dashboard/payments",
   icon: HiOutlineCreditCard,
 },
-  // {
-  //   label: "Reports",
-  //   labelBn: "রিপোর্টস",
-  //   href: "/dashboard/reports",
-  //   icon: HiOutlineFlag,
-  // },
+  {
+    label: "Reports",
+    labelBn: "রিপোর্টস",
+    href: "/dashboard/reports",
+    icon: HiOutlineFlag,
+  },
   // {
   //   label: "My Profile",
   //   labelBn: "আমার প্রোফাইল",
