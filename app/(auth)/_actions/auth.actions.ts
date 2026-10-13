@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL
+  process.env.NEXT_PUBLIC_BACKEND_APP_URL
 export async function getCurrentUser() {
   try {
     const cookieStore = await cookies();

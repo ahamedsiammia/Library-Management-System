@@ -1,9 +1,10 @@
 "use server"
+import { Book } from "@/types/book.types";
 import { cookies } from "next/headers";
-import { File } from "node:buffer";
 
 const batchUrl = process.env.NEXT_PUBLIC_BACKEND_APP_URL
 
+// my booking request 
 export const  getMyBookings =async()=> {
   const token = (await cookies()).get("accessToken")?.value;
   const res = await fetch(
@@ -17,6 +18,23 @@ export const  getMyBookings =async()=> {
   const result =await res.json();
   return result
 }
+//  all booking request
+
+export const  getAllBookings =async(page = 1, limit = 8)=> {
+  const token = (await cookies()).get("accessToken")?.value;
+  const res = await fetch(
+    `${batchUrl}/booking/all-bookings?page=${page}&limit=${limit}`,
+    {
+        headers : {authorization:token as string},
+      cache: "no-store",
+    }
+  );
+
+  const result =await res.json();
+  return result
+}
+
+// get booking details
 
 export const  getBookingsDetails =async(id : string)=> {
   const token = (await cookies()).get("accessToken")?.value;
@@ -33,12 +51,14 @@ export const  getBookingsDetails =async(id : string)=> {
   return result
 }
 
+// get my payments 
 export const  getMyPayments =async()=> {
   const token = (await cookies()).get("accessToken")?.value;
 
   const res = await fetch(
     `${batchUrl}/payment/my-payments`,
     {
+      method : "GET",
         headers : {authorization:token as string},
       cache: "no-store",
     }
@@ -47,6 +67,8 @@ export const  getMyPayments =async()=> {
   const result =await res.json();
   return result
 }
+
+// get payments details
 
 export const  getPaymentDetails =async(id : string)=> {
   const token = (await cookies()).get("accessToken")?.value;
@@ -63,6 +85,8 @@ export const  getPaymentDetails =async(id : string)=> {
   return result
 }
 
+// upload profile image
+
 export const uploadProfile = async (formData: FormData) => {
   const token = (await cookies()).get("accessToken")?.value;
 
@@ -71,6 +95,62 @@ export const uploadProfile = async (formData: FormData) => {
     headers: { Authorization: `${token}` },
     body: formData,
   });
-  console.log(res,"this is image upload response");
   return res.json();
 };
+
+// get single book or book details
+
+export const getBookById = async (id: string): Promise<{ success: boolean; data: Book; message?: string }> => {
+
+    const token = (await cookies()).get("accessToken")?.value;
+
+  const res = await fetch(`${batchUrl}/books/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token}`
+    },
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch book: ${res.statusText}`);
+  }
+
+  return res.json();
+};
+
+
+// create booking request
+
+export const BorrowRequest = async (id:string) => {
+  const token = (await cookies()).get("accessToken")?.value;
+
+  const res = await fetch(`${batchUrl}/booking/request/${id}`, {
+    method: "POST",
+    headers: { Authorization: `${token}` },
+  });
+  return res.json();
+};
+
+
+export const updateBookingRequest = async (data: any, bookingId: string) => {
+  const token = (await cookies()).get("accessToken")?.value;
+
+  const res = await fetch(`${batchUrl}/booking/update-request/${bookingId}`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.text();
+
+  console.log("Status:", res.status);
+  console.log("Response:", result);
+
+  return JSON.parse(result);
+};
+

@@ -24,6 +24,8 @@ import { Book } from "@/types/book.types";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { getBookById } from "@/app/(dashboard)/_actions/fetch-api";
+import BorrowRequestButton from "../../_components/BorrowRequestButton";
 
 export default function BookDetailsPage() {
   const params = useParams();
@@ -35,7 +37,6 @@ export default function BookDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFav, setIsFav] = useState(false);
-  const [requesting, setRequesting] = useState(false);
 
   // Authentication Protection Check
   useEffect(() => {
@@ -51,8 +52,9 @@ export default function BookDetailsPage() {
     async function fetchBookDetails() {
       setLoading(true);
       try {
-        const res = await bookService.getBookById(id);
+        const res = await getBookById(id);
         if (res.success && res.data) {
+          console.log(id ,"this is books details");
           setBook(res.data);
         } else {
           setError("বইটির তথ্য পাওয়া যায়নি।");
@@ -66,13 +68,7 @@ export default function BookDetailsPage() {
     fetchBookDetails();
   }, [id]);
 
-  const handleBorrowRequest = () => {
-    setRequesting(true);
-    setTimeout(() => {
-      setRequesting(false);
-      toast.success("বইটির জন্য অনুরোধ সফলভাবে পাঠানো হয়েছে!");
-    }, 1000);
-  };
+
 
   if (authLoading || loading) {
     return (
@@ -258,21 +254,8 @@ export default function BookDetailsPage() {
 
             {/* Action Buttons */}
             <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
-              <button
-                onClick={handleBorrowRequest}
-                disabled={requesting || book.copiesAvailable === 0}
-                className="w-full sm:flex-1 py-3.5 px-6 bg-[#00BBA6] hover:bg-teal-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
-              >
-                {requesting ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <HiOutlineBookOpen className="w-5 h-5" />
-                )}
-                <span>
-                  {book.copiesAvailable > 0 ? "বই ধার নেওয়ার অনুরোধ করুন" : "স্টকে কপি নেই"}
-                </span>
-              </button>
 
+              <BorrowRequestButton book={book} />
               <button
                 onClick={() => {
                   navigator.clipboard?.writeText(window.location.href);

@@ -21,6 +21,7 @@ import {
 import { bookService } from "@/services/book.service";
 import { Book, BookMeta } from "@/types/book.types";
 import { Loader2 } from "lucide-react";
+import BorrowRequestButton from "../_components/BorrowRequestButton";
 
 const CATEGORIES = [
   { name: "", nameBn: "সকল ক্যাটাগরি" },
@@ -84,6 +85,7 @@ const BooksPage: React.FC = () => {
         search: debouncedSearch || undefined,
         category: selectedCategory.name || undefined,
       });
+      console.log(res,"this is books respoiewur");
       if (res.success) {
         setBooks(res.data);
         setMeta(res.meta);
@@ -410,14 +412,10 @@ const BooksPage: React.FC = () => {
                               </motion.button>
                             </Link>
 
-                            <motion.button
-                              whileTap={{ scale: 0.95 }}
-                              disabled={book.copiesAvailable === 0}
-                              className="py-2.5 px-3 bg-[#00BBA6] hover:bg-teal-600 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                              <HiOutlineBookOpen className="w-4 h-4" />
-                              <span>অনুরোধ</span>
-                            </motion.button>
+                            {
+                             <BorrowRequestButton book={book} />
+                            }
+
                           </div>
                         </div>
                       </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import  { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   HiOutlineBanknotes,
   HiOutlineCalendarDays,
@@ -45,11 +45,21 @@ const formatDate = (date: string | null) => {
 const PaymentCards = ({ payments }: PaymentCardsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(payments.length / ITEMS_PER_PAGE);
+  // নতুন payment আগে, পুরনো payment পরে
+  const sortedPayments = useMemo(
+    () =>
+      [...payments].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
+    [payments],
+  );
+
+  const totalPages = Math.ceil(sortedPayments.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  const currentPayments = payments.slice(
+  const currentPayments = sortedPayments.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE,
   );
@@ -163,8 +173,7 @@ const PaymentCards = ({ payments }: PaymentCardsProps) => {
               {/* Details Button */}
               <div className="border-t border-slate-100 p-4 dark:border-slate-800">
                 <Link
-                href={`/dashboard/payments/${payment.id}`}
-                  type="button"
+                  href={`/dashboard/payments/${payment.id}`}
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600 transition hover:border-[#00BBA6] hover:bg-[#00BBA6]/5 hover:text-[#009F8D] dark:border-slate-700 dark:text-slate-300 dark:hover:border-[#2dd4bf] dark:hover:bg-[#00BBA6]/10 dark:hover:text-[#2dd4bf]"
                 >
                   <HiOutlineEye className="h-4 w-4" />
@@ -261,4 +270,3 @@ const PaymentCards = ({ payments }: PaymentCardsProps) => {
 };
 
 export default PaymentCards;
-

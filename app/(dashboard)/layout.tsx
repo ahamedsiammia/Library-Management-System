@@ -80,7 +80,7 @@ const USER_NAV: NavItem[] = [
   },
 ];
 
-const MODERATOR_NAV: NavItem[] = [
+const LIBRARIAN_NAV: NavItem[] = [
   {
     label: "Moderator Panel",
     labelBn: "মডারেটর প্যানেল",
@@ -94,12 +94,18 @@ const MODERATOR_NAV: NavItem[] = [
   //   href: "/books",
   //   icon: HiOutlineBookOpen,
   // },
-  // {
-  //   label: "Manage Requests",
-  //   labelBn: "রিকোয়েস্ট ম্যানেজ",
-  //   href: "/dashboard/requests",
-  //   icon: HiOutlineClipboardDocumentList,
-  // },
+  {
+    label: "Manage Requests",
+    labelBn: "রিকোয়েস্ট ম্যানেজ",
+    href: "/dashboard/manage-request",
+    icon: HiOutlineClipboardDocumentList,
+  },
+  {
+  label: "All Payments",
+  labelBn: "পেমেন্ট",
+  href: "/dashboard/payments",
+  icon: HiOutlineCreditCard,
+},
   // {
   //   label: "Reports",
   //   labelBn: "রিপোর্টস",
@@ -156,13 +162,13 @@ const ADMIN_NAV: NavItem[] = [
 
 const NAV_BY_ROLE: Record<string, NavItem[]> = {
   USER: USER_NAV,
-  MODERATOR: MODERATOR_NAV,
+  LIBRARIAN: LIBRARIAN_NAV,
   ADMIN: ADMIN_NAV,
 };
 
 const ROLE_LABEL: Record<string, string> = {
   USER: "User",
-  MODERATOR: "Moderator",
+  LIBRARIAN: "Librarian",
   ADMIN: "Admin",
 };
 export default function DashboardLayout({

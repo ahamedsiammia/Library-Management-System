@@ -26,23 +26,7 @@ export const bookService = {
     }
     
     const result = await res.json();
-
     return result
   },
 
-  async getBookById(id: string): Promise<{ success: boolean; data: Book; message?: string }> {
-    const res = await fetch(`${API_BASE_URL}/books/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch book: ${res.statusText}`);
-    }
-
-    return res.json();
-  },
 };

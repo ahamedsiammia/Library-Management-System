@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import {
   HiOutlineBookOpen,
   HiOutlineCalendar,
@@ -15,6 +16,8 @@ import {
 } from "react-icons/hi2";
 import { getBookingsDetails } from "../_actions/fetch-api";
 import Link from "next/link";
+
+const PAGE_SIZE = 4;
 
 type BookingStatus =
   | "PENDING"
@@ -77,6 +80,31 @@ const getStatusStyle = (status: BookingStatus) => {
 };
 
 const MyBookings = ({ bookings }: BookingTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.max(1, Math.ceil(bookings.length / PAGE_SIZE));
+
+  // bookings কমে গেলে (যেমন delete হলে) পেজ যেন range-এর বাইরে না যায়
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [currentPage, totalPages]);
+
+  // নতুন booking আগে, পুরনো booking পরে
+  const sortedBookings = useMemo(
+    () =>
+      [...bookings].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
+    [bookings],
+  );
+
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const paginatedBookings = sortedBookings.slice(
+    startIndex,
+    startIndex + PAGE_SIZE,
+  );
+
   const handleViewDetails = async (bookingId: string) => {
     const result = await getBookingsDetails(bookingId);
     if (result.success === true) {
@@ -91,6 +119,9 @@ const MyBookings = ({ bookings }: BookingTableProps) => {
   const handlePayment = (bookingId: string) => {
     console.log("Pay booking:", bookingId);
   };
+
+  const pageButtonBase =
+    "rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition-all duration-200 hover:border-[#00BBA6]/40 hover:bg-[#00BBA6]/5 hover:text-[#00A991] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-[#00BBA6]/40 dark:hover:bg-[#00BBA6]/10 dark:hover:text-[#2dd4bf]";
 
   return (
     <section className="w-full">
@@ -119,7 +150,7 @@ const MyBookings = ({ bookings }: BookingTableProps) => {
 
       {/* Booking Grid */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        {bookings.map((booking) => (
+        {paginatedBookings.map((booking) => (
           <div
             key={booking.id}
             className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#00BBA6]/30 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20 dark:hover:border-[#00BBA6]/40"
@@ -304,6 +335,53 @@ const MyBookings = ({ bookings }: BookingTableProps) => {
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className={pageButtonBase}
+            >
+              Previous
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => setCurrentPage(page)}
+                aria-current={page === currentPage ? "page" : undefined}
+                className={`h-9 w-9 rounded-xl text-xs font-bold transition-all duration-200 ${
+                  page === currentPage
+                    ? "bg-[#00BBA6] text-white shadow-sm shadow-[#00BBA6]/20"
+                    : "border border-slate-200 bg-white text-slate-600 hover:border-[#00BBA6]/40 hover:bg-[#00BBA6]/5 hover:text-[#00A991] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-[#00BBA6]/40 dark:hover:bg-[#00BBA6]/10 dark:hover:text-[#2dd4bf]"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className={pageButtonBase}
+            >
+              Next
+            </button>
+          </div>
+
+          <p className="text-xs text-slate-400 dark:text-slate-500">
+            Showing {startIndex + 1}–
+            {Math.min(startIndex + PAGE_SIZE, bookings.length)} of{" "}
+            {bookings.length} bookings
+          </p>
+        </div>
+      )}
     </section>
   );
 };
