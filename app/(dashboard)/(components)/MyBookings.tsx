@@ -18,6 +18,7 @@ import { createPayment, getBookingsDetails } from "../_actions/fetch-api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PaymentSuccessPage from "@/app/(public)/payment-success/page";
+import { toast } from "sonner";
 
 const PAGE_SIZE = 4;
 
@@ -127,8 +128,8 @@ const router = useRouter()
       console.log(result);
       if(result.success === true){
         router.push(result.data.sessionUrl)
-        await <PaymentSuccessPage result={result} />
       }
+      toast.error(result.message)
   };
 
   const pageButtonBase =
