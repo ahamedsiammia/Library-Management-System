@@ -26,6 +26,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { getBookById } from "@/app/(dashboard)/_actions/fetch-api";
 import BorrowRequestButton from "../../_components/BorrowRequestButton";
+import BookReviewsSection from "../../_components/BookReviewsSection";
 
 export default function BookDetailsPage() {
   const params = useParams();
@@ -269,6 +270,9 @@ export default function BookDetailsPage() {
             </div>
           </div>
         </motion.div>
+
+        {/* Reviews & Ratings Section */}
+        <BookReviewsSection bookId={id} />
       </div>
     </div>
   );

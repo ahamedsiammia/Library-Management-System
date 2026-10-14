@@ -46,8 +46,12 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      console.log(process.env.NEXT_PUBLIC_BACKEND_APP_URL);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_APP_URL}/aichat`, {
+      const backendUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        process.env.NEXT_PUBLIC_BACKEND_APP_URL ||
+        "http://localhost:5000";
+
+      const res = await fetch(`${backendUrl}/aichat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: updatedMessages }),

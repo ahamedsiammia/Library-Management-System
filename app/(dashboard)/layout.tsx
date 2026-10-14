@@ -49,30 +49,30 @@ const USER_NAV: NavItem[] = [
     icon: HiOutlineChartBarSquare,
     exact: true,
   },
-  // {
-  //   label: "Book Catalog",
-  //   labelBn: "বুক ক্যাটালগ",
-  //   href: "/",
-  //   icon: HiOutlineBookOpen,
-  // },
   {
     label: "Borrowed Books",
     labelBn: "ধার নেওয়া বই",
     href: "/dashboard/borrowed",
     icon: HiOutlineBookmark,
   },
-{
-  label: "Payments",
-  labelBn: "পেমেন্ট",
-  href: "/dashboard/payments",
-  icon: HiOutlineCreditCard,
-},
-{
-  label: "Return Book",
-  labelBn: "বই ফেরত দিন",
-  href: "/dashboard/return-books",
-  icon: HiOutlineArrowUturnLeft,
-},
+  {
+    label: "Return Book",
+    labelBn: "বই ফেরত দিন",
+    href: "/dashboard/return-books",
+    icon: HiOutlineArrowUturnLeft,
+  },
+  {
+    label: "Payments",
+    labelBn: "পেমেন্ট",
+    href: "/dashboard/payments",
+    icon: HiOutlineCreditCard,
+  },
+  {
+    label: "Notices",
+    labelBn: "নোটিশ",
+    href: "/dashboard/notices",
+    icon: HiOutlineBell,
+  },
   {
     label: "My Profile",
     labelBn: "আমার প্রোফাইল",
@@ -89,12 +89,6 @@ const LIBRARIAN_NAV: NavItem[] = [
     icon: HiOutlineChartBarSquare,
     exact: true,
   },
-  // {
-  //   label: "Book Catalog",
-  //   labelBn: "বুক ক্যাটালগ",
-  //   href: "/books",
-  //   icon: HiOutlineBookOpen,
-  // },
   {
     label: "Manage Requests",
     labelBn: "রিকোয়েস্ট ম্যানেজ",
@@ -102,23 +96,35 @@ const LIBRARIAN_NAV: NavItem[] = [
     icon: HiOutlineClipboardDocumentList,
   },
   {
-  label: "All Payments",
-  labelBn: "পেমেন্ট",
-  href: "/dashboard/payments",
-  icon: HiOutlineCreditCard,
-},
-  // {
-  //   label: "Reports",
-  //   labelBn: "রিপোর্টস",
-  //   href: "/dashboard/reports",
-  //   icon: HiOutlineFlag,
-  // },
-  // {
-  //   label: "My Profile",
-  //   labelBn: "আমার প্রোফাইল",
-  //   href: "/dashboard/profile",
-  //   icon: HiOutlineUser,
-  // },
+    label: "Manage Books",
+    labelBn: "বই ম্যানেজমেন্ট",
+    href: "/dashboard/manage-books",
+    icon: HiOutlineBookOpen,
+  },
+  {
+    label: "Notices",
+    labelBn: "নোটিশ ম্যানেজমেন্ট",
+    href: "/dashboard/notices",
+    icon: HiOutlineBell,
+  },
+  {
+    label: "All Payments",
+    labelBn: "পেমেন্ট রেকর্ড",
+    href: "/dashboard/all-payments",
+    icon: HiOutlineCreditCard,
+  },
+  {
+    label: "System Settings",
+    labelBn: "সিস্টেম সেটিংস",
+    href: "/dashboard/settings",
+    icon: HiOutlineCog6Tooth,
+  },
+  {
+    label: "Audit Logs",
+    labelBn: "অডিট লগস",
+    href: "/dashboard/logs",
+    icon: HiOutlineDocumentText,
+  },
 ];
 
 const ADMIN_NAV: NavItem[] = [
@@ -129,36 +135,54 @@ const ADMIN_NAV: NavItem[] = [
     icon: HiOutlineChartBarSquare,
     exact: true,
   },
-  // {
-  //   label: "User Management",
-  //   labelBn: "ইউজার ম্যানেজমেন্ট",
-  //   href: "/dashboard/users",
-  //   icon: HiOutlineUsers,
-  // },
-  // {
-  //   label: "Librarian Staff",
-  //   labelBn: "লাইব্রেরিয়ান স্টাফ",
-  //   href: "/dashboard/librarians",
-  //   icon: HiOutlineUserGroup,
-  // },
-  // {
-  //   label: "Book Catalog",
-  //   labelBn: "বুক ক্যাটালগ",
-  //   href: "/books",
-  //   icon: HiOutlineBookOpen,
-  // },
-  // {
-  //   label: "System Settings",
-  //   labelBn: "সিস্টেম সেটিংস",
-  //   href: "/dashboard/settings",
-  //   icon: HiOutlineCog6Tooth,
-  // },
-  // {
-  //   label: "Audit Logs",
-  //   labelBn: "অডিট লগস",
-  //   href: "/dashboard/logs",
-  //   icon: HiOutlineDocumentText,
-  // },
+  {
+    label: "User Management",
+    labelBn: "ইউজার ম্যানেজমেন্ট",
+    href: "/dashboard/users",
+    icon: HiOutlineUsers,
+  },
+  {
+    label: "Librarian Staff",
+    labelBn: "লাইব্রেরিয়ান স্টাফ",
+    href: "/dashboard/librarians",
+    icon: HiOutlineUserGroup,
+  },
+  {
+    label: "Manage Books",
+    labelBn: "বই ম্যানেজমেন্ট",
+    href: "/dashboard/manage-books",
+    icon: HiOutlineBookOpen,
+  },
+  {
+    label: "Manage Requests",
+    labelBn: "রিকোয়েস্ট ম্যানেজ",
+    href: "/dashboard/manage-request",
+    icon: HiOutlineClipboardDocumentList,
+  },
+  {
+    label: "All Payments",
+    labelBn: "পেমেন্ট রেকর্ড",
+    href: "/dashboard/all-payments",
+    icon: HiOutlineCreditCard,
+  },
+  {
+    label: "Notices",
+    labelBn: "নোটিশ ম্যানেজমেন্ট",
+    href: "/dashboard/notices",
+    icon: HiOutlineBell,
+  },
+  {
+    label: "System Settings",
+    labelBn: "সিস্টেম সেটিংস",
+    href: "/dashboard/settings",
+    icon: HiOutlineCog6Tooth,
+  },
+  {
+    label: "Audit Logs",
+    labelBn: "অডিট লগস",
+    href: "/dashboard/logs",
+    icon: HiOutlineDocumentText,
+  },
 ];
 
 const NAV_BY_ROLE: Record<string, NavItem[]> = {
@@ -182,10 +206,9 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Current user-er role onujayi nav items
-  const navItems: NavItem[] = user ? (NAV_BY_ROLE[user?.role] ?? []) : [];
-  const roleLabel = user ? (ROLE_LABEL[user?.role] ?? user.role) : "";
+  const navItems: NavItem[] = user?.role ? (NAV_BY_ROLE[user.role] ?? []) : [];
+  const roleLabel = user?.role ? (ROLE_LABEL[user.role] ?? user.role) : "";
 
-  
   const isActive = (item: NavItem) => {
     if (item.exact) return pathname === item.href;
     return pathname === item.href || pathname.startsWith(item.href + "/");
@@ -199,7 +222,7 @@ export default function DashboardLayout({
 
   // Role guard: je role er nav nai, take dashboard-e dhukte dibe na
   useEffect(() => {
-    if (!loading && user && !NAV_BY_ROLE[user?.role]) {
+    if (!loading && user && (!user.role || !NAV_BY_ROLE[user.role])) {
       toast.error("আপনার এই পেজ অ্যাক্সেস করার অনুমতি নেই।");
       window.location.href = "/";
     }

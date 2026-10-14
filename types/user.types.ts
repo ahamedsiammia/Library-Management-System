@@ -7,5 +7,9 @@ export interface UserProfile {
   semester?: string;
   shift?: string;
   role?: string;
+  imageUrl?: string;
+  imagePublicId?: string;
+  activeStatus?: string;
+  emailVerified?: boolean;
   createdAt?: string;
 }

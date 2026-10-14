@@ -25,7 +25,9 @@ type BookingStatus =
   | "PENDING"
   | "APPROVED"
   | "REJECTED"
+  | "ISSUED"
   | "RETURNED"
+  | "OVERDUE"
   | "CANCELLED";
 
 export type Booking = {

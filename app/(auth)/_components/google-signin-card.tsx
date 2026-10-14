@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { toast } from "sonner";
 
+declare global {
+  interface Window {
+    google?: any;
+  }
+}
+
 export function GoogleSignInCard({
   clientId,
 }: {
@@ -28,7 +34,7 @@ export function GoogleSignInCard({
     try {
       window.google.accounts.id.initialize({
         client_id: clientId,
-        callback: async (response) => {
+        callback: async (response: any) => {
           if (!response.credential) {
             toast.error("Google theke login information paoa jayni. Abar try korun.");
             return;

@@ -19,7 +19,7 @@ import { ManagedUser, CreateLibrarianPayload } from "@/types/moderator.types";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import {
-  getAllUsersAction,
+  getAllLibrariansAction,
   updateUserStatusAction,
   createLibrarianAction,
 } from "@/app/(dashboard)/_actions/moderator.actions";
@@ -55,7 +55,7 @@ export default function LibrariansPage() {
   const fetchLibrarians = async () => {
     setLoading(true);
     try {
-      const res = await getAllUsersAction("LIBRARYAN");
+      const res = await getAllLibrariansAction();
       if (res.success && res.data) {
         setLibrarians(res.data);
       } else {

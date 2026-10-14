@@ -20,7 +20,8 @@ import {
 const ROLE_OPTIONS = [
   { value: "", label: "সকল রোল" },
   { value: "USER", label: "Student / Patron" },
-  { value: "LIBRARYAN", label: "Librarian" },
+  { value: "LIBRARIAN", label: "Librarian" },
+  { value: "ADMIN", label: "Admin" },
 ];
 
 const STATUS_BADGE: Record<string, string> = {
@@ -29,7 +30,9 @@ const STATUS_BADGE: Record<string, string> = {
 };
 
 const ROLE_BADGE: Record<string, string> = {
+  ADMIN: "bg-violet-500/15 text-violet-600 dark:text-violet-400 border border-violet-500/30",
   MODARATOR: "bg-violet-500/15 text-violet-600 dark:text-violet-400 border border-violet-500/30",
+  LIBRARIAN: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30",
   LIBRARYAN: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30",
   USER: "bg-secondary text-muted-foreground border border-border",
 };
@@ -202,10 +205,10 @@ export default function UsersPage() {
                         <span
                           className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-full ${ROLE_BADGE[user.role] || ROLE_BADGE.USER}`}
                         >
-                          {user.role === "LIBRARYAN"
+                          {user.role === "LIBRARYAN" || user.role === "LIBRARIAN"
                             ? "Librarian"
-                            : user.role === "MODARATOR"
-                            ? "Moderator"
+                            : user.role === "ADMIN" || user.role === "MODARATOR"
+                            ? "Admin"
                             : "Student"}
                         </span>
                       </td>
@@ -217,7 +220,7 @@ export default function UsersPage() {
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        {user.role !== "MODARATOR" && (
+                        {user.role !== "MODARATOR" && user.role !== "ADMIN" && (
                           <button
                             onClick={() => handleStatusToggle(user)}
                             disabled={updating === user.id}

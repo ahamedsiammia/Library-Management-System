@@ -9,9 +9,8 @@ import {
   CreateLibrarianPayload,
 } from "@/types/moderator.types";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL 
-  
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
 async function getAuthHeaders() {
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
@@ -28,7 +27,7 @@ export async function getDashboardStatsAction(): Promise<{
 }> {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/moderator/dashboard-stats`, {
+    const res = await fetch(`${API_BASE_URL}/librarian/dashboard-stats`, {
       headers,
       cache: "no-store",
     });
@@ -49,11 +48,61 @@ export async function getAllUsersAction(
     const params = new URLSearchParams();
     if (role) params.append("role", role);
     if (search) params.append("search", search);
-    const url = `${API_BASE_URL}/moderator/users${params.toString() ? `?${params}` : ""}`;
+    const url = `${API_BASE_URL}/user/all-user${params.toString() ? `?${params}` : ""}`;
     const res = await fetch(url, { headers, cache: "no-store" });
     const data = await res.json();
     if (!res.ok) return { success: false, message: data.message || "Failed to fetch users" };
-    return { success: true, data: data.data };
+    
+    const rawList = Array.isArray(data.data) ? data.data : data.data?.user || [];
+    let list: ManagedUser[] = rawList;
+    if (role) {
+      const r = role.toUpperCase();
+      list = list.filter((u: ManagedUser) => {
+        const userRole = u.role?.toUpperCase();
+        if (r === "LIBRARIAN" || r === "LIBRARYAN") {
+          return userRole === "LIBRARIAN" || userRole === "LIBRARYAN";
+        }
+        return userRole === r;
+      });
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(
+        (u: ManagedUser) =>
+          u.name?.toLowerCase().includes(q) ||
+          u.email?.toLowerCase().includes(q) ||
+          u.instituteName?.toLowerCase().includes(q)
+      );
+    }
+
+    return { success: true, data: list };
+  } catch (error: any) {
+    return { success: false, message: error.message || "Server error" };
+  }
+}
+
+export async function getAllLibrariansAction(): Promise<{
+  success: boolean;
+  data?: ManagedUser[];
+  message?: string;
+}> {
+  try {
+    const headers = await getAuthHeaders();
+    try {
+      const res = await fetch(`${API_BASE_URL}/admin/all-librarian`, {
+        headers,
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const list = Array.isArray(data.data) ? data.data : data.data?.librarian || [];
+        if (list.length > 0) return { success: true, data: list };
+      }
+    } catch {
+      // Fallback
+    }
+
+    return getAllUsersAction("LIBRARIAN");
   } catch (error: any) {
     return { success: false, message: error.message || "Server error" };
   }
@@ -66,11 +115,11 @@ export async function updateUserStatusAction(
   try {
     const headers = await getAuthHeaders();
     const res = await fetch(
-      `${API_BASE_URL}/moderator/users/${userId}/status`,
+      `${API_BASE_URL}/admin/update-status/${userId}`,
       {
         method: "PATCH",
         headers,
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ activeStatus: status }),
       }
     );
     const data = await res.json();
@@ -86,7 +135,7 @@ export async function createLibrarianAction(
 ): Promise<{ success: boolean; data?: ManagedUser; message?: string }> {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/moderator/librarians`, {
+    const res = await fetch(`${API_BASE_URL}/librarian/librarians`, {
       method: "POST",
       headers,
       body: JSON.stringify(payload),
@@ -106,7 +155,7 @@ export async function getSystemSettingsAction(): Promise<{
 }> {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/moderator/settings`, {
+    const res = await fetch(`${API_BASE_URL}/librarian/settings`, {
       headers,
       cache: "no-store",
     });
@@ -123,7 +172,7 @@ export async function updateSystemSettingsAction(
 ): Promise<{ success: boolean; data?: SystemSettings; message?: string }> {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/moderator/settings`, {
+    const res = await fetch(`${API_BASE_URL}/librarian/settings`, {
       method: "PATCH",
       headers,
       body: JSON.stringify(payload),
@@ -143,7 +192,7 @@ export async function getActivityLogsAction(): Promise<{
 }> {
   try {
     const headers = await getAuthHeaders();
-    const res = await fetch(`${API_BASE_URL}/moderator/logs`, {
+    const res = await fetch(`${API_BASE_URL}/librarian/logs`, {
       headers,
       cache: "no-store",
     });

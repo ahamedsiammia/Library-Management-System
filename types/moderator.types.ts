@@ -31,7 +31,7 @@ export interface ManagedUser {
   semester: string;
   shift: string;
   activeStatus: "ACTIVE" | "BLOCKED";
-  role: "USER" | "LIBRARYAN" | "MODARATOR";
+  role: "USER" | "LIBRARIAN" | "ADMIN" | "LIBRARYAN" | "MODARATOR";
   createdAt: string;
   updatedAt: string;
 }
