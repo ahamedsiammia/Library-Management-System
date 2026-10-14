@@ -67,6 +67,22 @@ export const  getMyPayments =async()=> {
   const result =await res.json();
   return result
 }
+// get all payments
+export const  getAllPayments =async()=> {
+  const token = (await cookies()).get("accessToken")?.value;
+
+  const res = await fetch(
+    `${batchUrl}/payment/all-payments`,
+    {
+      method : "GET",
+        headers : {authorization:token as string},
+      cache: "no-store",
+    }
+  );
+
+  const result =await res.json();
+  return result
+}
 
 // get payments details
 
@@ -133,7 +149,7 @@ export const BorrowRequest = async (id:string) => {
   return res.json();
 };
 
-
+// update booking request
 export const updateBookingRequest = async (data: any, bookingId: string) => {
   const token = (await cookies()).get("accessToken")?.value;
 
@@ -154,3 +170,18 @@ export const updateBookingRequest = async (data: any, bookingId: string) => {
   return JSON.parse(result);
 };
 
+// create payments 
+export const createPayment = async (data: any) => {
+  const token = (await cookies()).get("accessToken")?.value;
+
+  const res = await fetch(`${batchUrl}/payment/create-payment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+};

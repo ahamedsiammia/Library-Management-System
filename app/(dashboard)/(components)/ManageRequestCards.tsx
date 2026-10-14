@@ -136,9 +136,9 @@ const ManageRequestCards = ({ bookings, meta }: ManageRequestCardsProps) => {
     [bookings],
   );
 
-  const handleUpdate = (bookingId: string,status: "APPROVED" | "REJECTED",rejectionReason?: string,) => {
+  const handleUpdate = (bookingId: string,status: "APPROVED" | "REJECTED",rejectReason?: string,) => {
     setActiveId(bookingId);
-    const data = {status,rejectionReason}
+    const data = {status,rejectReason}
     startTransition(async () => {
       const result = await updateBookingRequest(data,bookingId);
         // console.log(result,"status update result");

@@ -14,8 +14,10 @@ import {
   HiOutlineBanknotes,
   HiOutlineCurrencyBangladeshi,
 } from "react-icons/hi2";
-import { getBookingsDetails } from "../_actions/fetch-api";
+import { createPayment, getBookingsDetails } from "../_actions/fetch-api";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import PaymentSuccessPage from "@/app/(public)/payment-success/page";
 
 const PAGE_SIZE = 4;
 
@@ -48,6 +50,8 @@ export type Booking = {
 interface BookingTableProps {
   bookings: Booking[];
 }
+
+
 
 const formatDate = (date: string | null) => {
   if (!date) return "Not available";
@@ -111,13 +115,20 @@ const MyBookings = ({ bookings }: BookingTableProps) => {
     }
     console.log("View booking details:", bookingId);
   };
+const router = useRouter()
 
   const handleDelete = (bookingId: string) => {
     console.log("Delete booking:", bookingId);
   };
 
-  const handlePayment = (bookingId: string) => {
-    console.log("Pay booking:", bookingId);
+  const handlePayment = async(bookingId: string) => {
+    const data ={bookingId}
+      const result = await createPayment(data);
+      console.log(result);
+      if(result.success === true){
+        router.push(result.data.sessionUrl)
+        await <PaymentSuccessPage result={result} />
+      }
   };
 
   const pageButtonBase =
